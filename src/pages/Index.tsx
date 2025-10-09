@@ -1,9 +1,9 @@
-import { motion } from "framer-motion";
 import { Navigation } from "@/components/Navigation";
 import { ProjectCard } from "@/components/ProjectCard";
 import { SkillBadge } from "@/components/SkillBadge";
 import { SocialLink } from "@/components/SocialLink";
 import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const projects = [
   {
@@ -99,107 +99,49 @@ const Index = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-6 pt-20">
-        <div className="container mx-auto max-w-4xl text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl md:text-7xl font-bold text-foreground mb-6"
-          >
-            Building the Future with{" "}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Artificial Intelligence
-            </span>
-          </motion.h1>
+      <section className="relative min-h-[70vh] flex items-center px-6 pt-32 pb-20">
+        <div className="container mx-auto max-w-5xl">
+          <p className="text-xs uppercase tracking-wider text-muted-foreground mb-6">
+            AI ENGINEER
+          </p>
           
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto"
-          >
-            AI Engineer specializing in deep learning, computer vision, and large language models.
-            Transforming complex problems into intelligent solutions.
-          </motion.p>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight max-w-4xl">
+            I build reliable, production-ready AI features and full-stack apps.
+          </h1>
+          
+          <p className="text-lg text-muted-foreground mb-10 max-w-2xl">
+            Focused on pragmatic, high-impact solutions: fast iterations, clean architecture, and measurable outcomes.
+          </p>
 
-          <motion.button
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            onClick={() => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })}
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-[var(--shadow-lg)] transition-all duration-300 hover:scale-105 hover:shadow-xl"
-          >
-            View My Work
-          </motion.button>
+          <div className="flex items-center gap-4 flex-wrap">
+            <Button 
+              onClick={() => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })}
+              className="bg-foreground text-background hover:bg-foreground/90 px-6"
+            >
+              View Projects
+            </Button>
+            <Button 
+              variant="outline"
+              className="px-6"
+            >
+              View Resume
+            </Button>
+            <span className="text-muted-foreground">you@example.com</span>
+          </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-24 px-6 bg-muted/30">
-        <div className="container mx-auto max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-12 text-center">
-              About Me
-            </h2>
-            
-            <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-              <p>
-                I'm an AI Engineer passionate about pushing the boundaries of what's possible with machine learning.
-                With a strong foundation in mathematics and computer science, I specialize in developing cutting-edge
-                AI systems that solve real-world problems.
-              </p>
-              
-              <p>
-                My expertise spans across deep learning architectures, natural language processing, and computer vision.
-                I've successfully deployed production-grade AI models that process millions of requests daily, achieving
-                significant improvements in accuracy and performance.
-              </p>
-              
-              <p>
-                What drives me is the intersection of theoretical AI research and practical implementation. I believe
-                in writing clean, efficient code and building systems that are not only powerful but also scalable and
-                maintainable. I'm constantly exploring new frameworks, papers, and techniques to stay at the forefront
-                of this rapidly evolving field.
-              </p>
-
-              <p>
-                When I'm not training models or optimizing algorithms, I contribute to open-source AI projects and share
-                knowledge with the developer community through technical writing and mentorship.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-24 px-6">
-        <div className="container mx-auto max-w-6xl">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-center"
-          >
-            Featured Projects
-          </motion.h2>
+      <section id="projects" className="py-20 px-6 bg-muted/30">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-4xl font-bold text-foreground mb-3">
+            Selected Projects
+          </h2>
           
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-lg text-muted-foreground mb-16 text-center max-w-2xl mx-auto"
-          >
-            A selection of my recent AI and machine learning projects demonstrating expertise
-            across various domains and technologies.
-          </motion.p>
+          <p className="text-muted-foreground mb-16">
+            A few focused examples. Code and demos available on request.
+          </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {projects.map((project, index) => (
@@ -209,38 +151,49 @@ const Index = () => {
         </div>
       </section>
 
+      {/* About Section */}
+      <section id="about" className="py-20 px-6">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-4xl font-bold text-foreground mb-8">
+            About Me
+          </h2>
+          
+          <div className="space-y-6 text-lg text-muted-foreground leading-relaxed max-w-3xl">
+            <p>
+              I'm an AI Engineer passionate about pushing the boundaries of what's possible with machine learning.
+              With a strong foundation in mathematics and computer science, I specialize in developing cutting-edge
+              AI systems that solve real-world problems.
+            </p>
+            
+            <p>
+              My expertise spans across deep learning architectures, natural language processing, and computer vision.
+              I've successfully deployed production-grade AI models that process millions of requests daily, achieving
+              significant improvements in accuracy and performance.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Skills Section */}
-      <section id="skills" className="py-24 px-6 bg-muted/30">
-        <div className="container mx-auto max-w-6xl">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl font-bold text-foreground mb-16 text-center"
-          >
+      <section id="skills" className="py-20 px-6 bg-muted/30">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-4xl font-bold text-foreground mb-12">
             Technical Skills
-          </motion.h2>
+          </h2>
 
           <div className="space-y-12">
-            {Object.entries(skills).map(([category, skillList], categoryIndex) => (
+            {Object.entries(skills).map(([category, skillList]) => (
               <div key={category}>
-                <motion.h3
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-                  className="text-2xl font-semibold text-foreground mb-6"
-                >
+                <h3 className="text-xl font-semibold text-foreground mb-6">
                   {category}
-                </motion.h3>
+                </h3>
                 
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {skillList.map((skill, index) => (
                     <SkillBadge
                       key={skill}
                       skill={skill}
-                      index={index + categoryIndex * skillList.length}
+                      index={index}
                     />
                   ))}
                 </div>
@@ -251,38 +204,30 @@ const Index = () => {
       </section>
 
       {/* Social Media / Connect Section */}
-      <section id="connect" className="py-24 px-6">
-        <div className="container mx-auto max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Let's Connect
-            </h2>
-            
-            <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
-              I'm always open to discussing new opportunities, collaborations, or just chatting
-              about AI and technology. Feel free to reach out through any of these platforms.
-            </p>
+      <section id="connect" className="py-20 px-6">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-4xl font-bold text-foreground mb-6">
+            Let's Connect
+          </h2>
+          
+          <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
+            I'm always open to discussing new opportunities, collaborations, or just chatting
+            about AI and technology. Feel free to reach out through any of these platforms.
+          </p>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
-              {socialLinks.map((link, index) => (
-                <SocialLink key={link.label} {...link} index={index} />
-              ))}
-            </div>
-          </motion.div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl">
+            {socialLinks.map((link, index) => (
+              <SocialLink key={link.label} {...link} index={index} />
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-border">
-        <div className="container mx-auto text-center">
-          <p className="text-muted-foreground">
-            © {new Date().getFullYear()} AI Engineer Portfolio. Built with React, TypeScript, and Framer Motion.
+        <div className="container mx-auto max-w-5xl">
+          <p className="text-sm text-muted-foreground">
+            © {new Date().getFullYear()} AI Engineer Portfolio. Built with React, TypeScript, and Tailwind CSS.
           </p>
         </div>
       </footer>

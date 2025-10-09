@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { LucideIcon } from "lucide-react";
 
 interface SocialLinkProps {
@@ -8,22 +7,18 @@ interface SocialLinkProps {
   index: number;
 }
 
-export const SocialLink = ({ icon: Icon, href, label, index }: SocialLinkProps) => {
+export const SocialLink = ({ icon: Icon, href, label }: SocialLinkProps) => {
   return (
-    <motion.a
+    <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="group flex flex-col items-center gap-3 rounded-xl bg-card p-6 shadow-[var(--shadow-sm)] transition-all duration-300 hover:shadow-[var(--shadow-md)] hover:scale-105"
+      className="group flex flex-col items-center gap-3 rounded-lg bg-card p-6 border border-border transition-all duration-200 hover:border-foreground/20"
     >
-      <div className="rounded-full bg-primary/10 p-4 transition-all duration-300 group-hover:bg-primary group-hover:scale-110">
-        <Icon className="h-6 w-6 text-primary transition-colors duration-300 group-hover:text-primary-foreground" />
+      <div className="rounded-full bg-muted p-3 transition-colors duration-200 group-hover:bg-foreground">
+        <Icon className="h-5 w-5 text-foreground transition-colors duration-200 group-hover:text-background" />
       </div>
-      <span className="text-sm font-medium text-foreground">{label}</span>
-    </motion.a>
+      <span className="text-sm text-foreground">{label}</span>
+    </a>
   );
 };
