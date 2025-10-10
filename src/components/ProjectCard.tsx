@@ -7,6 +7,7 @@ interface ProjectCardProps {
   githubUrl?: string;
   liveUrl?: string;
   index: number;
+  image: string;
 }
 
 export const ProjectCard = ({
@@ -15,10 +16,18 @@ export const ProjectCard = ({
   techStack,
   githubUrl,
   liveUrl,
+  image,
 }: ProjectCardProps) => {
   return (
-    <div className="group relative overflow-hidden rounded-lg bg-card p-6 border border-border transition-all duration-200 hover:border-primary hover:shadow-lg focus-within:ring-2 focus-within:ring-accent focus-within:border-accent">
-      <div className="space-y-4">
+    <div className="group relative overflow-hidden rounded-lg bg-card border border-border transition-all duration-200 hover:border-primary hover:shadow-lg focus-within:ring-2 focus-within:ring-accent focus-within:border-accent">
+      <div className="aspect-video overflow-hidden">
+        <img 
+          src={image} 
+          alt={title} 
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
+      <div className="p-6 space-y-4">
         <h3 className="text-xl font-semibold text-foreground">{title}</h3>
         <p className="text-muted-foreground leading-relaxed text-sm">{description}</p>
         

@@ -1,10 +1,13 @@
 import { Navigation } from "@/components/Navigation";
 import { ProjectCard } from "@/components/ProjectCard";
 import { SkillBadge } from "@/components/SkillBadge";
-import { Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
+import neuralOptimizerImg from "@/assets/neural-optimizer.jpg";
+import contentGeneratorImg from "@/assets/content-generator.jpg";
+import cvPipelineImg from "@/assets/cv-pipeline.jpg";
+import rlAgentImg from "@/assets/rl-agent.jpg";
 
 const projects = [
   {
@@ -13,6 +16,7 @@ const projects = [
     techStack: ["PyTorch", "Python", "CUDA", "TensorFlow"],
     githubUrl: "https://github.com/yourusername/neural-optimizer",
     liveUrl: "https://demo.neural-optimizer.com",
+    image: neuralOptimizerImg,
   },
   {
     title: "AI-Powered Content Generator",
@@ -20,12 +24,14 @@ const projects = [
     techStack: ["OpenAI API", "LangChain", "FastAPI", "React"],
     githubUrl: "https://github.com/yourusername/content-generator",
     liveUrl: "https://content-gen-demo.com",
+    image: contentGeneratorImg,
   },
   {
     title: "Computer Vision Pipeline",
     description: "Created an end-to-end object detection and tracking system for real-time video analysis. Processes 30 FPS on standard hardware with 92% accuracy.",
     techStack: ["YOLOv8", "OpenCV", "Docker", "AWS"],
     githubUrl: "https://github.com/yourusername/cv-pipeline",
+    image: cvPipelineImg,
   },
   {
     title: "Reinforcement Learning Game Agent",
@@ -33,6 +39,7 @@ const projects = [
     techStack: ["Stable-Baselines3", "Gymnasium", "NumPy", "Matplotlib"],
     githubUrl: "https://github.com/yourusername/rl-agent",
     liveUrl: "https://rl-agent-demo.com",
+    image: rlAgentImg,
   },
 ];
 
@@ -70,24 +77,6 @@ const skills = {
     "Kubernetes",
   ],
 };
-
-const socialLinks = [
-  {
-    icon: Github,
-    href: "https://github.com/yourusername",
-    label: "GitHub",
-  },
-  {
-    icon: Linkedin,
-    href: "https://linkedin.com/in/yourusername",
-    label: "LinkedIn",
-  },
-  {
-    icon: Mail,
-    href: "mailto:your.email@gmail.com",
-    label: "Email",
-  },
-];
 
 const Index = () => {
   const [resumeOpen, setResumeOpen] = useState(false);
@@ -169,7 +158,7 @@ const Index = () => {
 
       {/* Projects Section */}
       <section id="projects" className="py-20 px-6 bg-muted/30">
-        <div className="container mx-auto max-w-7xl">
+        <div className="container mx-auto max-w-5xl">
           <h2 className="text-4xl font-bold text-foreground mb-3 animate-fade-in">
             Selected Projects
           </h2>
@@ -178,11 +167,11 @@ const Index = () => {
             A few focused examples. Code and demos available on request.
           </p>
 
-          <div className="flex gap-8 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+          <div className="space-y-8">
             {projects.map((project, index) => (
               <div 
                 key={project.title} 
-                className="flex-shrink-0 w-[400px] snap-start animate-fade-in"
+                className="animate-fade-in"
                 style={{ animationDelay: `${0.2 + index * 0.1}s` }}
               >
                 <ProjectCard {...project} index={index} />
