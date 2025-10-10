@@ -1,9 +1,10 @@
 import { Navigation } from "@/components/Navigation";
 import { ProjectCard } from "@/components/ProjectCard";
 import { SkillBadge } from "@/components/SkillBadge";
-import { SocialLink } from "@/components/SocialLink";
-import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useState } from "react";
 
 const projects = [
   {
@@ -82,11 +83,6 @@ const socialLinks = [
     label: "LinkedIn",
   },
   {
-    icon: Twitter,
-    href: "https://twitter.com/yourusername",
-    label: "Twitter",
-  },
-  {
     icon: Mail,
     href: "mailto:your.email@gmail.com",
     label: "Email",
@@ -94,6 +90,8 @@ const socialLinks = [
 ];
 
 const Index = () => {
+  const [resumeOpen, setResumeOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -120,13 +118,50 @@ const Index = () => {
             >
               View Projects
             </Button>
-            <Button 
-              variant="outline"
-              className="px-6"
-            >
-              View Resume
-            </Button>
-            <span className="text-muted-foreground">you@example.com</span>
+            <Dialog open={resumeOpen} onOpenChange={setResumeOpen}>
+              <DialogTrigger asChild>
+                <Button 
+                  variant="outline"
+                  className="px-6"
+                >
+                  View Resume
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>Resume</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-6 text-sm">
+                  <section>
+                    <h3 className="text-lg font-semibold mb-2">Experience</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <h4 className="font-medium">Senior AI Engineer - Tech Company</h4>
+                        <p className="text-muted-foreground text-xs">2022 - Present</p>
+                        <ul className="list-disc list-inside mt-2 text-muted-foreground space-y-1">
+                          <li>Led development of production AI systems serving millions of users</li>
+                          <li>Improved model inference speed by 40% through optimization</li>
+                          <li>Mentored junior engineers on ML best practices</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </section>
+                  
+                  <section>
+                    <h3 className="text-lg font-semibold mb-2">Education</h3>
+                    <div>
+                      <h4 className="font-medium">Master of Science in Computer Science</h4>
+                      <p className="text-muted-foreground text-xs">University Name - 2020</p>
+                    </div>
+                  </section>
+
+                  <section>
+                    <h3 className="text-lg font-semibold mb-2">Skills</h3>
+                    <p className="text-muted-foreground">Python, PyTorch, TensorFlow, Deep Learning, NLP, Computer Vision, MLOps</p>
+                  </section>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </section>
@@ -203,32 +238,28 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Social Media / Connect Section */}
-      <section id="connect" className="py-20 px-6">
-        <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl font-bold text-foreground mb-6">
-            Let's Connect
-          </h2>
-          
-          <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
-            I'm always open to discussing new opportunities, collaborations, or just chatting
-            about AI and technology. Feel free to reach out through any of these platforms.
-          </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl">
-            {socialLinks.map((link, index) => (
-              <SocialLink key={link.label} {...link} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-border">
         <div className="container mx-auto max-w-5xl">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} AI Engineer Portfolio. Built with React, TypeScript, and Tailwind CSS.
-          </p>
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <p className="text-sm text-muted-foreground">
+              © 2025 Ujjawal Bhardwaj
+            </p>
+            <div className="flex items-center gap-4">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  aria-label={link.label}
+                >
+                  <link.icon className="h-5 w-5" />
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </footer>
     </div>
