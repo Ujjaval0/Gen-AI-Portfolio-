@@ -99,19 +99,19 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center px-6 pt-32 pb-20">
         <div className="container mx-auto max-w-5xl">
-          <p className="text-xs uppercase tracking-wider text-muted-foreground mb-6">
+          <p className="text-xs uppercase tracking-wider text-muted-foreground mb-6 animate-fade-in">
             AI ENGINEER
           </p>
           
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight max-w-4xl">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight max-w-4xl animate-fade-in" style={{ animationDelay: '0.1s' }}>
             I build reliable, production-ready AI features and full-stack apps.
           </h1>
           
-          <p className="text-lg text-muted-foreground mb-10 max-w-2xl">
+          <p className="text-lg text-muted-foreground mb-10 max-w-2xl animate-fade-in" style={{ animationDelay: '0.2s' }}>
             Focused on pragmatic, high-impact solutions: fast iterations, clean architecture, and measurable outcomes.
           </p>
 
-          <div className="flex items-center gap-4 flex-wrap">
+          <div className="flex items-center gap-4 flex-wrap animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <Button 
               onClick={() => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })}
               className="bg-foreground text-background hover:bg-foreground/90 px-6"
@@ -169,18 +169,24 @@ const Index = () => {
 
       {/* Projects Section */}
       <section id="projects" className="py-20 px-6 bg-muted/30">
-        <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl font-bold text-foreground mb-3">
+        <div className="container mx-auto max-w-7xl">
+          <h2 className="text-4xl font-bold text-foreground mb-3 animate-fade-in">
             Selected Projects
           </h2>
           
-          <p className="text-muted-foreground mb-16">
+          <p className="text-muted-foreground mb-16 animate-fade-in" style={{ animationDelay: '0.1s' }}>
             A few focused examples. Code and demos available on request.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="flex gap-8 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
             {projects.map((project, index) => (
-              <ProjectCard key={project.title} {...project} index={index} />
+              <div 
+                key={project.title} 
+                className="flex-shrink-0 w-[400px] snap-start animate-fade-in"
+                style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+              >
+                <ProjectCard {...project} index={index} />
+              </div>
             ))}
           </div>
         </div>
@@ -189,18 +195,18 @@ const Index = () => {
       {/* About Section */}
       <section id="about" className="py-20 px-6">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl font-bold text-foreground mb-8">
+          <h2 className="text-4xl font-bold text-foreground mb-8 animate-fade-in">
             About Me
           </h2>
           
           <div className="space-y-6 text-lg text-muted-foreground leading-relaxed max-w-3xl">
-            <p>
+            <p className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
               I'm an AI Engineer passionate about pushing the boundaries of what's possible with machine learning.
               With a strong foundation in mathematics and computer science, I specialize in developing cutting-edge
               AI systems that solve real-world problems.
             </p>
             
-            <p>
+            <p className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
               My expertise spans across deep learning architectures, natural language processing, and computer vision.
               I've successfully deployed production-grade AI models that process millions of requests daily, achieving
               significant improvements in accuracy and performance.
@@ -212,13 +218,13 @@ const Index = () => {
       {/* Skills Section */}
       <section id="skills" className="py-20 px-6 bg-muted/30">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl font-bold text-foreground mb-12">
+          <h2 className="text-4xl font-bold text-foreground mb-12 animate-fade-in">
             Technical Skills
           </h2>
 
           <div className="space-y-12">
-            {Object.entries(skills).map(([category, skillList]) => (
-              <div key={category}>
+            {Object.entries(skills).map(([category, skillList], catIndex) => (
+              <div key={category} className="animate-fade-in" style={{ animationDelay: `${catIndex * 0.1}s` }}>
                 <h3 className="text-xl font-semibold text-foreground mb-6">
                   {category}
                 </h3>
@@ -241,24 +247,10 @@ const Index = () => {
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-border">
         <div className="container mx-auto max-w-5xl">
-          <div className="flex items-center justify-between flex-wrap gap-4">
+          <div className="flex items-center justify-center">
             <p className="text-sm text-muted-foreground">
-              © 2025 Ujjawal Bhardwaj
+              © 2025 Ujjaval Bhardwaj
             </p>
-            <div className="flex items-center gap-4">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                  aria-label={link.label}
-                >
-                  <link.icon className="h-5 w-5" />
-                </a>
-              ))}
-            </div>
           </div>
         </div>
       </footer>
