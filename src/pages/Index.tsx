@@ -12,31 +12,35 @@ import rlAgentImg from "@/assets/rl-agent.jpg";
 const projects = [
   {
     title: "Neural Network Optimizer",
-    description: "Developed a custom optimization algorithm that reduces training time by 40% for large-scale neural networks. Implemented adaptive learning rate scheduling and gradient clipping techniques.",
-    techStack: ["PyTorch", "Python", "CUDA", "TensorFlow"],
+    description: "Developed a custom optimization algorithm that reduces training time by 40% for large-scale neural networks.",
+    fullDescription: "Developed a custom optimization algorithm that reduces training time by 40% for large-scale neural networks. Implemented adaptive learning rate scheduling and gradient clipping techniques. The system includes automatic hyperparameter tuning, distributed training support, and memory optimization for large batch processing. Successfully deployed in production, handling over 100 training jobs daily.",
+    techStack: ["PyTorch", "Python", "CUDA", "TensorFlow", "NumPy", "Pandas"],
     githubUrl: "https://github.com/yourusername/neural-optimizer",
     liveUrl: "https://demo.neural-optimizer.com",
     image: neuralOptimizerImg,
   },
   {
     title: "AI-Powered Content Generator",
-    description: "Built a fine-tuned GPT model for generating marketing content with context-aware suggestions. Achieved 85% user satisfaction rate with generated content quality.",
-    techStack: ["OpenAI API", "LangChain", "FastAPI", "React"],
+    description: "Built a fine-tuned GPT model for generating marketing content with context-aware suggestions.",
+    fullDescription: "Built a fine-tuned GPT model for generating marketing content with context-aware suggestions. Achieved 85% user satisfaction rate with generated content quality. Features include multi-language support, brand voice customization, SEO optimization, and real-time collaboration. Integrated with popular CMS platforms and social media management tools.",
+    techStack: ["OpenAI API", "LangChain", "FastAPI", "React", "PostgreSQL", "Redis"],
     githubUrl: "https://github.com/yourusername/content-generator",
     liveUrl: "https://content-gen-demo.com",
     image: contentGeneratorImg,
   },
   {
     title: "Computer Vision Pipeline",
-    description: "Created an end-to-end object detection and tracking system for real-time video analysis. Processes 30 FPS on standard hardware with 92% accuracy.",
-    techStack: ["YOLOv8", "OpenCV", "Docker", "AWS"],
+    description: "Created an end-to-end object detection and tracking system for real-time video analysis.",
+    fullDescription: "Created an end-to-end object detection and tracking system for real-time video analysis. Processes 30 FPS on standard hardware with 92% accuracy. Includes multi-object tracking, scene understanding, anomaly detection, and automated alert system. Deployed across multiple security installations with 99.9% uptime.",
+    techStack: ["YOLOv8", "OpenCV", "Docker", "AWS", "Python", "TensorRT"],
     githubUrl: "https://github.com/yourusername/cv-pipeline",
     image: cvPipelineImg,
   },
   {
     title: "Reinforcement Learning Game Agent",
-    description: "Trained an AI agent using Deep Q-Learning to master complex strategy games. Agent achieved superhuman performance after 10 million training iterations.",
-    techStack: ["Stable-Baselines3", "Gymnasium", "NumPy", "Matplotlib"],
+    description: "Trained an AI agent using Deep Q-Learning to master complex strategy games.",
+    fullDescription: "Trained an AI agent using Deep Q-Learning to master complex strategy games. Agent achieved superhuman performance after 10 million training iterations. Implemented advanced exploration strategies, experience replay, and double Q-learning. The agent demonstrates emergent strategic thinking and adapts to opponent playstyles in real-time.",
+    techStack: ["Stable-Baselines3", "Gymnasium", "NumPy", "Matplotlib", "PyTorch", "Ray"],
     githubUrl: "https://github.com/yourusername/rl-agent",
     liveUrl: "https://rl-agent-demo.com",
     image: rlAgentImg,
@@ -86,7 +90,7 @@ const Index = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative min-h-[70vh] flex items-center px-4 md:px-6 pt-24 md:pt-32 pb-16 md:pb-20 border-b border-border">
+      <section className="relative min-h-[70vh] flex items-center px-4 md:px-6 pt-24 md:pt-32 pb-16 md:pb-20">
         <div className="container mx-auto max-w-5xl">
           <p className="text-xs uppercase tracking-wider text-muted-foreground mb-6 animate-fade-in">
             AI ENGINEER
@@ -157,7 +161,7 @@ const Index = () => {
 
 
       {/* Projects Section */}
-      <section id="projects" className="py-16 md:py-20 px-4 md:px-6 bg-muted/30 border-b border-border">
+      <section id="projects" className="py-16 md:py-20 px-4 md:px-6 bg-muted/30">
         <div className="container mx-auto max-w-5xl">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3 animate-fade-in">
             Selected Projects
@@ -182,7 +186,7 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-16 md:py-20 px-4 md:px-6 border-b border-border">
+      <section id="about" className="py-16 md:py-20 px-4 md:px-6">
         <div className="container mx-auto max-w-5xl">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8 animate-fade-in">
             About Me
@@ -205,7 +209,7 @@ const Index = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-16 md:py-20 px-4 md:px-6 bg-muted/30 border-b border-border">
+      <section id="skills" className="py-16 md:py-20 px-4 md:px-6 bg-muted/30">
         <div className="container mx-auto max-w-5xl">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8 md:mb-12 animate-fade-in">
             Technical Skills
