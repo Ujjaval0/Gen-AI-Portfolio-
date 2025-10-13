@@ -86,13 +86,13 @@ const Index = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative min-h-[70vh] flex items-center px-6 pt-32 pb-20">
+      <section className="relative min-h-[70vh] flex items-center px-4 md:px-6 pt-24 md:pt-32 pb-16 md:pb-20 border-b border-border">
         <div className="container mx-auto max-w-5xl">
           <p className="text-xs uppercase tracking-wider text-muted-foreground mb-6 animate-fade-in">
             AI ENGINEER
           </p>
           
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight max-w-4xl animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight max-w-4xl animate-fade-in" style={{ animationDelay: '0.1s' }}>
             I build reliable, production-ready AI features and full-stack apps.
           </h1>
           
@@ -157,13 +157,13 @@ const Index = () => {
 
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-6 bg-muted/30">
+      <section id="projects" className="py-16 md:py-20 px-4 md:px-6 bg-muted/30 border-b border-border">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl font-bold text-foreground mb-3 animate-fade-in">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3 animate-fade-in">
             Selected Projects
           </h2>
           
-          <p className="text-muted-foreground mb-16 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <p className="text-sm md:text-base text-muted-foreground mb-12 md:mb-16 animate-fade-in" style={{ animationDelay: '0.1s' }}>
             A few focused examples. Code and demos available on request.
           </p>
 
@@ -182,13 +182,13 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-6">
+      <section id="about" className="py-16 md:py-20 px-4 md:px-6 border-b border-border">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl font-bold text-foreground mb-8 animate-fade-in">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8 animate-fade-in">
             About Me
           </h2>
           
-          <div className="space-y-6 text-lg text-muted-foreground leading-relaxed max-w-3xl">
+          <div className="space-y-4 md:space-y-6 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
             <p className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
               I'm an AI Engineer passionate about pushing the boundaries of what's possible with machine learning.
               With a strong foundation in mathematics and computer science, I specialize in developing cutting-edge
@@ -205,9 +205,9 @@ const Index = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 px-6 bg-muted/30">
+      <section id="skills" className="py-16 md:py-20 px-4 md:px-6 bg-muted/30 border-b border-border">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl font-bold text-foreground mb-12 animate-fade-in">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8 md:mb-12 animate-fade-in">
             Technical Skills
           </h2>
 
@@ -234,7 +234,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-border">
+      <footer className="py-8 md:py-12 px-4 md:px-6">
         <div className="container mx-auto max-w-5xl">
           <div className="flex items-center justify-center">
             <p className="text-sm text-muted-foreground">

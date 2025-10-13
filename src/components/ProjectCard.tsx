@@ -19,12 +19,12 @@ export const ProjectCard = ({
   image,
 }: ProjectCardProps) => {
   return (
-    <div className="group relative overflow-hidden rounded-lg bg-card border border-border transition-all duration-200 hover:border-primary hover:shadow-lg focus-within:ring-2 focus-within:ring-accent focus-within:border-accent">
-      <div className="aspect-video overflow-hidden">
+    <div className="group relative overflow-hidden rounded-lg bg-card border border-border transition-all duration-300 hover:border-primary hover:shadow-lg focus-within:ring-2 focus-within:ring-accent focus-within:border-accent animate-fade-in">
+      <div className="aspect-[16/9] md:aspect-[21/10] overflow-hidden max-h-[300px]">
         <img 
           src={image} 
           alt={title} 
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
       </div>
       <div className="p-6 space-y-4">
