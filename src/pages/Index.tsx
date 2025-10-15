@@ -15,8 +15,8 @@ const projects = [
     description: "Developed a custom optimization algorithm that reduces training time by 40% for large-scale neural networks.",
     fullDescription: "Developed a custom optimization algorithm that reduces training time by 40% for large-scale neural networks. Implemented adaptive learning rate scheduling and gradient clipping techniques. The system includes automatic hyperparameter tuning, distributed training support, and memory optimization for large batch processing. Successfully deployed in production, handling over 100 training jobs daily.",
     techStack: ["PyTorch", "Python", "CUDA", "TensorFlow", "NumPy", "Pandas"],
-    githubUrl: "https://github.com/yourusername/neural-optimizer",
-    liveUrl: "https://demo.neural-optimizer.com",
+    githubUrl: "https://github.com",
+    liveUrl: "https://demo.example.com",
     image: neuralOptimizerImg,
   },
   {
@@ -24,8 +24,8 @@ const projects = [
     description: "Built a fine-tuned GPT model for generating marketing content with context-aware suggestions.",
     fullDescription: "Built a fine-tuned GPT model for generating marketing content with context-aware suggestions. Achieved 85% user satisfaction rate with generated content quality. Features include multi-language support, brand voice customization, SEO optimization, and real-time collaboration. Integrated with popular CMS platforms and social media management tools.",
     techStack: ["OpenAI API", "LangChain", "FastAPI", "React", "PostgreSQL", "Redis"],
-    githubUrl: "https://github.com/yourusername/content-generator",
-    liveUrl: "https://content-gen-demo.com",
+    githubUrl: "https://github.com",
+    liveUrl: "https://demo.example.com",
     image: contentGeneratorImg,
   },
   {
@@ -33,7 +33,7 @@ const projects = [
     description: "Created an end-to-end object detection and tracking system for real-time video analysis.",
     fullDescription: "Created an end-to-end object detection and tracking system for real-time video analysis. Processes 30 FPS on standard hardware with 92% accuracy. Includes multi-object tracking, scene understanding, anomaly detection, and automated alert system. Deployed across multiple security installations with 99.9% uptime.",
     techStack: ["YOLOv8", "OpenCV", "Docker", "AWS", "Python", "TensorRT"],
-    githubUrl: "https://github.com/yourusername/cv-pipeline",
+    githubUrl: "https://github.com",
     image: cvPipelineImg,
   },
   {
@@ -41,8 +41,8 @@ const projects = [
     description: "Trained an AI agent using Deep Q-Learning to master complex strategy games.",
     fullDescription: "Trained an AI agent using Deep Q-Learning to master complex strategy games. Agent achieved superhuman performance after 10 million training iterations. Implemented advanced exploration strategies, experience replay, and double Q-learning. The agent demonstrates emergent strategic thinking and adapts to opponent playstyles in real-time.",
     techStack: ["Stable-Baselines3", "Gymnasium", "NumPy", "Matplotlib", "PyTorch", "Ray"],
-    githubUrl: "https://github.com/yourusername/rl-agent",
-    liveUrl: "https://rl-agent-demo.com",
+    githubUrl: "https://github.com",
+    liveUrl: "https://demo.example.com",
     image: rlAgentImg,
   },
 ];
@@ -85,6 +85,45 @@ const skills = {
 const Index = () => {
   const [resumeOpen, setResumeOpen] = useState(false);
 
+  // Custom cursor effect
+  useState(() => {
+    const cursorDot = document.createElement('div');
+    const cursorOutline = document.createElement('div');
+    
+    cursorDot.classList.add('cursor-dot');
+    cursorOutline.classList.add('cursor-outline');
+    
+    document.body.appendChild(cursorDot);
+    document.body.appendChild(cursorOutline);
+    
+    const moveCursor = (e: MouseEvent) => {
+      cursorDot.style.left = `${e.clientX}px`;
+      cursorDot.style.top = `${e.clientY}px`;
+      cursorOutline.style.left = `${e.clientX - 16}px`;
+      cursorOutline.style.top = `${e.clientY - 16}px`;
+    };
+    
+    const handleHover = (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button')) {
+        document.body.classList.add('cursor-hover');
+      } else {
+        document.body.classList.remove('cursor-hover');
+      }
+    };
+    
+    window.addEventListener('mousemove', moveCursor);
+    document.addEventListener('mouseover', handleHover);
+    
+    return () => {
+      window.removeEventListener('mousemove', moveCursor);
+      document.removeEventListener('mouseover', handleHover);
+      document.body.removeChild(cursorDot);
+      document.body.removeChild(cursorOutline);
+      document.body.classList.remove('cursor-hover');
+    };
+  });
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -107,7 +146,7 @@ const Index = () => {
           <div className="flex items-center gap-4 flex-wrap animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <Button 
               onClick={() => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })}
-              className="bg-foreground text-background hover:bg-foreground/90 px-6"
+              className="bg-foreground text-background hover:bg-foreground/90 px-6 transition-all duration-300 hover:scale-105"
             >
               View Projects
             </Button>
@@ -115,7 +154,7 @@ const Index = () => {
               <DialogTrigger asChild>
                 <Button 
                   variant="outline"
-                  className="px-6"
+                  className="px-6 transition-all duration-300 hover:scale-105"
                 >
                   View Resume
                 </Button>
@@ -193,13 +232,13 @@ const Index = () => {
           </h2>
           
           <div className="space-y-4 md:space-y-6 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
-            <p className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
+            <p className="animate-fade-in transition-all duration-300 hover:text-foreground" style={{ animationDelay: '0.1s' }}>
               I'm an AI Engineer passionate about pushing the boundaries of what's possible with machine learning.
               With a strong foundation in mathematics and computer science, I specialize in developing cutting-edge
               AI systems that solve real-world problems.
             </p>
             
-            <p className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <p className="animate-fade-in transition-all duration-300 hover:text-foreground" style={{ animationDelay: '0.2s' }}>
               My expertise spans across deep learning architectures, natural language processing, and computer vision.
               I've successfully deployed production-grade AI models that process millions of requests daily, achieving
               significant improvements in accuracy and performance.
