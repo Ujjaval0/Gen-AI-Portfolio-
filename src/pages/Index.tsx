@@ -47,40 +47,35 @@ const projects = [
   },
 ];
 
-const skills = {
-  "AI & Machine Learning": [
-    "Deep Learning",
-    "Neural Networks",
-    "Computer Vision",
-    "NLP",
-    "Reinforcement Learning",
-    "LLMs",
-  ],
-  "Programming Languages": [
-    "Python",
-    "TypeScript",
-    "C++",
-    "SQL",
-    "Rust",
-  ],
-  "Frameworks & Tools": [
-    "PyTorch",
-    "TensorFlow",
-    "Scikit-learn",
-    "Hugging Face",
-    "LangChain",
-    "OpenCV",
-    "FastAPI",
-    "Docker",
-  ],
-  "Cloud & MLOps": [
-    "AWS SageMaker",
-    "Google Cloud AI",
-    "MLflow",
-    "Weights & Biases",
-    "Kubernetes",
-  ],
-};
+const skills = [
+  "Deep Learning",
+  "Neural Networks",
+  "Computer Vision",
+  "NLP",
+  "Reinforcement Learning",
+  "LLMs",
+  "Python",
+  "TypeScript",
+  "C++",
+  "SQL",
+  "Rust",
+  "PyTorch",
+  "TensorFlow",
+  "Scikit-learn",
+  "Hugging Face",
+  "LangChain",
+  "OpenCV",
+  "FastAPI",
+  "Docker",
+  "AWS SageMaker",
+  "Google Cloud AI",
+  "MLflow",
+  "Weights & Biases",
+  "Kubernetes",
+  "React",
+  "Node.js",
+  "Git",
+];
 
 const Index = () => {
   const [resumeOpen, setResumeOpen] = useState(false);
@@ -254,23 +249,13 @@ const Index = () => {
             Technical Skills
           </h2>
 
-          <div className="space-y-12">
-            {Object.entries(skills).map(([category, skillList], catIndex) => (
-              <div key={category} className="animate-fade-in" style={{ animationDelay: `${catIndex * 0.1}s` }}>
-                <h3 className="text-xl font-semibold text-foreground mb-6">
-                  {category}
-                </h3>
-                
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {skillList.map((skill, index) => (
-                    <SkillBadge
-                      key={skill}
-                      skill={skill}
-                      index={index}
-                    />
-                  ))}
-                </div>
-              </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
+            {skills.map((skill, index) => (
+              <SkillBadge
+                key={skill}
+                skill={skill}
+                index={index}
+              />
             ))}
           </div>
         </div>
