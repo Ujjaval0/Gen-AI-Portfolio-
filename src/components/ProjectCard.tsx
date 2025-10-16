@@ -24,23 +24,23 @@ export const ProjectCard = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="group relative overflow-hidden rounded-lg bg-card border border-border transition-all duration-700 hover:border-primary/50 hover:shadow-xl cursor-pointer animate-fade-in md:grid md:grid-cols-[350px_1fr] md:gap-6 hover-lift animate-glow">
+        <div className="group relative overflow-hidden rounded-lg bg-card border border-border transition-all duration-300 hover:border-primary hover:shadow-lg cursor-pointer animate-fade-in md:grid md:grid-cols-[350px_1fr] md:gap-6">
           <div className="overflow-hidden md:h-full">
             <img 
               src={image} 
               alt={title} 
-              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110 group-hover:rotate-1 aspect-[16/9] md:aspect-square md:max-h-[280px]"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 aspect-[16/9] md:aspect-square md:max-h-[280px]"
             />
           </div>
           <div className="p-6 space-y-4 flex flex-col justify-center">
-            <h3 className="text-xl font-semibold text-foreground transition-all duration-500 group-hover:text-primary group-hover:translate-x-2">{title}</h3>
+            <h3 className="text-xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">{title}</h3>
             <p className="text-muted-foreground leading-relaxed text-sm line-clamp-3">{description}</p>
             
             <div className="flex flex-wrap gap-2">
               {techStack.slice(0, 4).map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-md bg-muted px-2.5 py-1 text-xs text-muted-foreground font-medium transition-all duration-300 hover:scale-110 hover:bg-primary hover:text-primary-foreground cursor-pointer"
+                  className="rounded-md bg-muted px-2.5 py-1 text-xs text-muted-foreground font-medium transition-transform duration-200 hover:scale-105"
                 >
                   {tech}
                 </span>
@@ -58,10 +58,10 @@ export const ProjectCard = ({
                   href={githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-foreground text-xs transition-all duration-500 hover:text-primary px-3 py-1.5 rounded-md bg-muted hover:bg-muted/80 hover:scale-110 hover:-translate-y-1"
+                  className="inline-flex items-center gap-2 text-foreground text-xs transition-all duration-200 hover:text-primary px-3 py-1.5 rounded-md bg-muted hover:bg-muted/80"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <Github className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-12" />
+                  <Github className="h-3.5 w-3.5" />
                   <span>View Code</span>
                 </a>
               )}
@@ -70,10 +70,10 @@ export const ProjectCard = ({
                   href={liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-foreground text-xs transition-all duration-500 hover:text-primary px-3 py-1.5 rounded-md bg-muted hover:bg-muted/80 hover:scale-110 hover:-translate-y-1"
+                  className="inline-flex items-center gap-2 text-foreground text-xs transition-all duration-200 hover:text-primary px-3 py-1.5 rounded-md bg-muted hover:bg-muted/80"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <ExternalLink className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-12" />
+                  <ExternalLink className="h-3.5 w-3.5" />
                   <span>Live Demo</span>
                 </a>
               )}

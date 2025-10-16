@@ -79,7 +79,6 @@ const skills = [
 
 const Index = () => {
   const [resumeOpen, setResumeOpen] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Custom cursor effect
   useState(() => {
@@ -108,17 +107,11 @@ const Index = () => {
       }
     };
     
-    const trackMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    
     window.addEventListener('mousemove', moveCursor);
-    window.addEventListener('mousemove', trackMousePosition);
     document.addEventListener('mouseover', handleHover);
     
     return () => {
       window.removeEventListener('mousemove', moveCursor);
-      window.removeEventListener('mousemove', trackMousePosition);
       document.removeEventListener('mouseover', handleHover);
       document.body.removeChild(cursorDot);
       document.body.removeChild(cursorOutline);
@@ -127,57 +120,28 @@ const Index = () => {
   });
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
+    <div className="min-h-screen bg-background">
       <Navigation />
-
-      {/* Animated Background Elements */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div 
-          className="absolute w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float-slow"
-          style={{ 
-            top: '10%', 
-            left: '10%',
-            transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
-          }}
-        />
-        <div 
-          className="absolute w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-float"
-          style={{ 
-            bottom: '10%', 
-            right: '10%',
-            transform: `translate(${mousePosition.x * -0.03}px, ${mousePosition.y * -0.03}px)`
-          }}
-        />
-        <div 
-          className="absolute w-64 h-64 bg-primary/10 rounded-full blur-2xl animate-float-slow"
-          style={{ 
-            top: '50%', 
-            left: '50%',
-            animationDelay: '2s',
-            transform: `translate(${mousePosition.x * 0.015}px, ${mousePosition.y * 0.015}px)`
-          }}
-        />
-      </div>
 
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center px-4 md:px-6 pt-24 md:pt-32 pb-16 md:pb-20">
-        <div className="container mx-auto max-w-5xl relative z-10">
-          <p className="text-xs uppercase tracking-wider text-muted-foreground mb-6 animate-slide-in-left">
+        <div className="container mx-auto max-w-5xl">
+          <p className="text-xs uppercase tracking-wider text-muted-foreground mb-6 animate-fade-in">
             AI ENGINEER
           </p>
           
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight max-w-4xl animate-slide-in-right" style={{ animationDelay: '0.1s' }}>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight max-w-4xl animate-fade-in" style={{ animationDelay: '0.1s' }}>
             I build reliable, production-ready AI features and full-stack apps.
           </h1>
           
-          <p className="text-lg text-muted-foreground mb-10 max-w-2xl animate-slide-in-left" style={{ animationDelay: '0.2s' }}>
+          <p className="text-lg text-muted-foreground mb-10 max-w-2xl animate-fade-in" style={{ animationDelay: '0.2s' }}>
             Focused on pragmatic, high-impact solutions: fast iterations, clean architecture, and measurable outcomes.
           </p>
 
-          <div className="flex items-center gap-4 flex-wrap animate-slide-in-up" style={{ animationDelay: '0.3s' }}>
+          <div className="flex items-center gap-4 flex-wrap animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <Button 
               onClick={() => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })}
-              className="bg-foreground text-background hover:bg-foreground/90 px-6 transition-all duration-500 hover:scale-110 hover-lift animate-glow"
+              className="bg-foreground text-background hover:bg-foreground/90 px-6 transition-all duration-300 hover:scale-105"
             >
               View Projects
             </Button>
@@ -185,7 +149,7 @@ const Index = () => {
               <DialogTrigger asChild>
                 <Button 
                   variant="outline"
-                  className="px-6 transition-all duration-500 hover:scale-110 hover-lift"
+                  className="px-6 transition-all duration-300 hover:scale-105"
                 >
                   View Resume
                 </Button>
@@ -231,13 +195,13 @@ const Index = () => {
 
 
       {/* Projects Section */}
-      <section id="projects" className="py-16 md:py-20 px-4 md:px-6 bg-muted/30 relative">
-        <div className="container mx-auto max-w-5xl relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3 animate-slide-in-left">
+      <section id="projects" className="py-16 md:py-20 px-4 md:px-6 bg-muted/30">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3 animate-fade-in">
             Selected Projects
           </h2>
           
-          <p className="text-sm md:text-base text-muted-foreground mb-12 md:mb-16 animate-slide-in-right" style={{ animationDelay: '0.1s' }}>
+          <p className="text-sm md:text-base text-muted-foreground mb-12 md:mb-16 animate-fade-in" style={{ animationDelay: '0.1s' }}>
             A few focused examples. Code and demos available on request.
           </p>
 
@@ -245,8 +209,8 @@ const Index = () => {
             {projects.map((project, index) => (
               <div 
                 key={project.title} 
-                className={index % 2 === 0 ? "animate-slide-in-left" : "animate-slide-in-right"}
-                style={{ animationDelay: `${0.2 + index * 0.15}s` }}
+                className="animate-fade-in"
+                style={{ animationDelay: `${0.2 + index * 0.1}s` }}
               >
                 <ProjectCard {...project} index={index} />
               </div>
@@ -256,20 +220,20 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-16 md:py-20 px-4 md:px-6 relative">
-        <div className="container mx-auto max-w-5xl relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8 animate-scale-in">
+      <section id="about" className="py-16 md:py-20 px-4 md:px-6">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8 animate-fade-in">
             About Me
           </h2>
           
           <div className="space-y-4 md:space-y-6 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
-            <p className="animate-slide-in-left transition-all duration-500 hover:text-foreground hover:translate-x-2" style={{ animationDelay: '0.1s' }}>
+            <p className="animate-fade-in transition-all duration-300 hover:text-foreground" style={{ animationDelay: '0.1s' }}>
               I'm an AI Engineer passionate about pushing the boundaries of what's possible with machine learning.
               With a strong foundation in mathematics and computer science, I specialize in developing cutting-edge
               AI systems that solve real-world problems.
             </p>
             
-            <p className="animate-slide-in-right transition-all duration-500 hover:text-foreground hover:translate-x-2" style={{ animationDelay: '0.2s' }}>
+            <p className="animate-fade-in transition-all duration-300 hover:text-foreground" style={{ animationDelay: '0.2s' }}>
               My expertise spans across deep learning architectures, natural language processing, and computer vision.
               I've successfully deployed production-grade AI models that process millions of requests daily, achieving
               significant improvements in accuracy and performance.
@@ -279,13 +243,9 @@ const Index = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-16 md:py-20 px-4 md:px-6 bg-muted/30 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent animate-shimmer" style={{ top: '20%' }} />
-          <div className="absolute w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent animate-shimmer" style={{ top: '80%', animationDelay: '1.5s' }} />
-        </div>
-        <div className="container mx-auto max-w-5xl relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8 md:mb-12 animate-scale-in">
+      <section id="skills" className="py-16 md:py-20 px-4 md:px-6 bg-muted/30">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8 md:mb-12 animate-fade-in">
             Technical Skills
           </h2>
 
@@ -302,10 +262,10 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 md:py-12 px-4 md:px-6 relative">
+      <footer className="py-8 md:py-12 px-4 md:px-6">
         <div className="container mx-auto max-w-5xl">
-          <div className="flex items-center justify-center animate-fade-in">
-            <p className="text-sm text-muted-foreground transition-all duration-300 hover:text-foreground">
+          <div className="flex items-center justify-center">
+            <p className="text-sm text-muted-foreground">
               © 2025 Ujjaval Bhardwaj
             </p>
           </div>
