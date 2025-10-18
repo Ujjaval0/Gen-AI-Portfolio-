@@ -4,10 +4,12 @@ import { SkillBadge } from "@/components/SkillBadge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
+import { useSound } from "@/hooks/useSound";
 import neuralOptimizerImg from "@/assets/neural-optimizer.jpg";
 import contentGeneratorImg from "@/assets/content-generator.jpg";
 import cvPipelineImg from "@/assets/cv-pipeline.jpg";
 import rlAgentImg from "@/assets/rl-agent.jpg";
+import clickSound from "@/assets/click-sound.mp3";
 
 const projects = [
   {
@@ -79,6 +81,7 @@ const skills = [
 
 const Index = () => {
   const [resumeOpen, setResumeOpen] = useState(false);
+  const playClick = useSound(clickSound, 0.3);
 
   // Custom cursor effect
   useState(() => {
@@ -140,7 +143,10 @@ const Index = () => {
 
           <div className="flex items-center gap-4 flex-wrap animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <Button 
-              onClick={() => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => {
+                playClick();
+                document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
+              }}
               className="bg-foreground text-background hover:bg-foreground/90 px-6 transition-all duration-300 hover:scale-105"
             >
               View Projects
@@ -150,6 +156,7 @@ const Index = () => {
                 <Button 
                   variant="outline"
                   className="px-6 transition-all duration-300 hover:scale-105"
+                  onClick={playClick}
                 >
                   View Resume
                 </Button>

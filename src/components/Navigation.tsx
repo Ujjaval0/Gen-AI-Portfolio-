@@ -1,8 +1,13 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useSound } from "@/hooks/useSound";
+import hoverSound from "@/assets/hover-sound.mp3";
+import clickSound from "@/assets/click-sound.mp3";
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
+  const playHover = useSound(hoverSound, 0.2);
+  const playClick = useSound(clickSound, 0.3);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +33,8 @@ const Navigation = () => {
               rel="noopener noreferrer"
               className="text-foreground hover:text-muted-foreground transition-colors"
               aria-label="GitHub"
+              onMouseEnter={playHover}
+              onClick={playClick}
             >
               <Github className="h-5 w-5" />
             </a>
@@ -37,6 +44,8 @@ const Navigation = () => {
               rel="noopener noreferrer"
               className="text-foreground hover:text-muted-foreground transition-colors"
               aria-label="LinkedIn"
+              onMouseEnter={playHover}
+              onClick={playClick}
             >
               <Linkedin className="h-5 w-5" />
             </a>
@@ -44,6 +53,8 @@ const Navigation = () => {
               href="mailto:your.email@gmail.com"
               className="text-foreground hover:text-muted-foreground transition-colors"
               aria-label="Email"
+              onMouseEnter={playHover}
+              onClick={playClick}
             >
               <Mail className="h-5 w-5" />
             </a>
@@ -53,18 +64,24 @@ const Navigation = () => {
             <a
               href="#projects"
               className="text-sm text-foreground hover:text-muted-foreground transition-colors duration-200"
+              onMouseEnter={playHover}
+              onClick={playClick}
             >
               Projects
             </a>
             <a
               href="#about"
               className="text-sm text-foreground hover:text-muted-foreground transition-colors duration-200"
+              onMouseEnter={playHover}
+              onClick={playClick}
             >
               About
             </a>
             <a
               href="#skills"
               className="text-sm text-foreground hover:text-muted-foreground transition-colors duration-200"
+              onMouseEnter={playHover}
+              onClick={playClick}
             >
               Skills
             </a>

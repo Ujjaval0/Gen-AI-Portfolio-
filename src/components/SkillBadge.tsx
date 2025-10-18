@@ -1,4 +1,7 @@
 import { Code2, Database, Cloud, Cpu, GitBranch, Container, Brain, Eye, MessageSquare, Sparkles } from "lucide-react";
+import { useSound } from "@/hooks/useSound";
+import hoverSound from "@/assets/hover-sound.mp3";
+import clickSound from "@/assets/click-sound.mp3";
 
 interface SkillBadgeProps {
   skill: string;
@@ -30,11 +33,15 @@ const skillIcons: Record<string, any> = {
 
 export const SkillBadge = ({ skill, index }: SkillBadgeProps) => {
   const Icon = skillIcons[skill];
+  const playHover = useSound(hoverSound, 0.15);
+  const playClick = useSound(clickSound, 0.25);
   
   return (
     <div 
       className="group flex flex-col items-center justify-center gap-2 rounded-lg bg-background/50 backdrop-blur-sm px-4 py-6 border border-border/50 transition-all duration-500 hover:border-primary hover:scale-110 hover:shadow-lg hover:shadow-primary/20 animate-fade-in cursor-pointer"
       style={{ animationDelay: `${index * 0.05}s` }}
+      onMouseEnter={playHover}
+      onClick={playClick}
     >
       {Icon ? (
         <Icon className="w-8 h-8 md:w-10 md:h-10 text-muted-foreground group-hover:text-primary transition-colors duration-300" />
