@@ -1,5 +1,6 @@
 import { ExternalLink, Github } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { motion } from "framer-motion";
 
 interface ProjectCardProps {
   title: string;
@@ -24,26 +25,55 @@ export const ProjectCard = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="group relative overflow-hidden rounded-lg bg-card border border-border transition-all duration-300 hover:border-primary hover:shadow-lg cursor-pointer animate-fade-in md:grid md:grid-cols-[350px_1fr] md:gap-6">
-          <div className="overflow-hidden md:h-full">
-            <img 
+        <motion.div 
+          className="group relative overflow-hidden rounded-lg bg-card border border-border cursor-pointer md:grid md:grid-cols-[350px_1fr] md:gap-6"
+          whileHover={{ 
+            scale: 1.02,
+            borderColor: "hsl(var(--primary))",
+            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)"
+          }}
+          transition={{ duration: 0.3 }}
+        >
+          <motion.div 
+            className="overflow-hidden md:h-full"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.img 
               src={image} 
               alt={title} 
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 aspect-[16/9] md:aspect-square md:max-h-[280px]"
+              className="w-full h-full object-cover aspect-[16/9] md:aspect-square md:max-h-[280px]"
+              whileHover={{ scale: 1.15, rotate: 2 }}
+              transition={{ duration: 0.6 }}
             />
-          </div>
+          </motion.div>
           <div className="p-6 space-y-4 flex flex-col justify-center">
-            <h3 className="text-xl font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">{title}</h3>
-            <p className="text-muted-foreground leading-relaxed text-sm line-clamp-3">{description}</p>
+            <motion.h3 
+              className="text-xl font-semibold text-foreground"
+              whileHover={{ x: 10, color: "hsl(var(--primary))" }}
+              transition={{ duration: 0.2 }}
+            >
+              {title}
+            </motion.h3>
+            <motion.p 
+              className="text-muted-foreground leading-relaxed text-sm line-clamp-3"
+              whileHover={{ x: 5 }}
+            >
+              {description}
+            </motion.p>
             
             <div className="flex flex-wrap gap-2">
-              {techStack.slice(0, 4).map((tech) => (
-                <span
+              {techStack.slice(0, 4).map((tech, idx) => (
+                <motion.span
                   key={tech}
-                  className="rounded-md bg-muted px-2.5 py-1 text-xs text-muted-foreground font-medium transition-transform duration-200 hover:scale-105"
+                  className="rounded-md bg-muted px-2.5 py-1 text-xs text-muted-foreground font-medium"
+                  whileHover={{ scale: 1.15, y: -3 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.05 }}
                 >
                   {tech}
-                </span>
+                </motion.span>
               ))}
               {techStack.length > 4 && (
                 <span className="rounded-md bg-muted px-2.5 py-1 text-xs text-muted-foreground font-medium">
@@ -54,32 +84,36 @@ export const ProjectCard = ({
             
             <div className="flex gap-3 pt-2">
               {githubUrl && (
-                <a
+                <motion.a
                   href={githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-foreground text-xs transition-all duration-200 hover:text-primary px-3 py-1.5 rounded-md bg-muted hover:bg-muted/80"
+                  className="inline-flex items-center gap-2 text-foreground text-xs px-3 py-1.5 rounded-md bg-muted"
                   onClick={(e) => e.stopPropagation()}
+                  whileHover={{ scale: 1.1, backgroundColor: "hsl(var(--primary) / 0.2)" }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <Github className="h-3.5 w-3.5" />
                   <span>View Code</span>
-                </a>
+                </motion.a>
               )}
               {liveUrl && (
-                <a
+                <motion.a
                   href={liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-foreground text-xs transition-all duration-200 hover:text-primary px-3 py-1.5 rounded-md bg-muted hover:bg-muted/80"
+                  className="inline-flex items-center gap-2 text-foreground text-xs px-3 py-1.5 rounded-md bg-muted"
                   onClick={(e) => e.stopPropagation()}
+                  whileHover={{ scale: 1.1, backgroundColor: "hsl(var(--primary) / 0.2)" }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <ExternalLink className="h-3.5 w-3.5" />
                   <span>Live Demo</span>
-                </a>
+                </motion.a>
               )}
             </div>
           </div>
-        </div>
+        </motion.div>
       </DialogTrigger>
       
       <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
