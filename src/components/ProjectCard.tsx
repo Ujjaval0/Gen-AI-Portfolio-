@@ -29,7 +29,6 @@ export const ProjectCard = ({
           className="group relative overflow-hidden rounded-lg bg-card border border-border cursor-pointer md:grid md:grid-cols-[350px_1fr] md:gap-6"
           whileHover={{ 
             scale: 1.02,
-            borderColor: "hsl(var(--primary))",
             boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)"
           }}
           transition={{ duration: 0.3 }}
@@ -49,8 +48,8 @@ export const ProjectCard = ({
           </motion.div>
           <div className="p-6 space-y-4 flex flex-col justify-center">
             <motion.h3 
-              className="text-xl font-semibold text-foreground"
-              whileHover={{ x: 10, color: "hsl(var(--primary))" }}
+              className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors"
+              whileHover={{ x: 10 }}
               transition={{ duration: 0.2 }}
             >
               {title}
@@ -88,9 +87,9 @@ export const ProjectCard = ({
                   href={githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-foreground text-xs px-3 py-1.5 rounded-md bg-muted"
+                  className="inline-flex items-center gap-2 text-foreground text-xs px-3 py-1.5 rounded-md bg-muted hover:bg-primary/20"
                   onClick={(e) => e.stopPropagation()}
-                  whileHover={{ scale: 1.1, backgroundColor: "hsl(var(--primary) / 0.2)" }}
+                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <Github className="h-3.5 w-3.5" />
@@ -102,9 +101,9 @@ export const ProjectCard = ({
                   href={liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-foreground text-xs px-3 py-1.5 rounded-md bg-muted"
+                  className="inline-flex items-center gap-2 text-foreground text-xs px-3 py-1.5 rounded-md bg-muted hover:bg-primary/20"
                   onClick={(e) => e.stopPropagation()}
-                  whileHover={{ scale: 1.1, backgroundColor: "hsl(var(--primary) / 0.2)" }}
+                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <ExternalLink className="h-3.5 w-3.5" />

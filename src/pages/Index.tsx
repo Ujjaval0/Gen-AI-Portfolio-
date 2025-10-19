@@ -380,8 +380,8 @@ const Index = () => {
             transition={{ duration: 0.8 }}
           >
             <motion.p 
-              className="text-sm text-muted-foreground"
-              whileHover={{ scale: 1.05, color: "hsl(var(--primary))" }}
+              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              whileHover={{ scale: 1.05 }}
             >
               © 2025 Ujjaval Bhardwaj
             </motion.p>

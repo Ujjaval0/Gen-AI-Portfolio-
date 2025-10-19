@@ -44,9 +44,9 @@ export const SkillBadge = ({ skill, index }: SkillBadgeProps) => {
         stiffness: 100
       }}
       whileHover={{ 
-        scale: 1.15, 
-        rotate: [0, -5, 5, 0],
-        boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)"
+        scale: 1.15,
+        boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)",
+        transition: { type: "spring", stiffness: 300, damping: 20 }
       }}
       whileTap={{ scale: 0.95 }}
       className="group flex flex-col items-center justify-center gap-2 rounded-lg bg-card backdrop-blur-sm px-4 py-6 border border-border/50 cursor-pointer"
