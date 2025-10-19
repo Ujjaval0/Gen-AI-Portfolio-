@@ -4,12 +4,10 @@ import { SkillBadge } from "@/components/SkillBadge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
-import { useSound } from "@/hooks/useSound";
 import neuralOptimizerImg from "@/assets/neural-optimizer.jpg";
 import contentGeneratorImg from "@/assets/content-generator.jpg";
 import cvPipelineImg from "@/assets/cv-pipeline.jpg";
 import rlAgentImg from "@/assets/rl-agent.jpg";
-import hoverSound from "@/assets/hover-sound.mp3";
 import { motion } from "framer-motion";
 
 const projects = [
@@ -82,7 +80,6 @@ const skills = [
 
 const Index = () => {
   const [resumeOpen, setResumeOpen] = useState(false);
-  const playHover = useSound(hoverSound, 0.2);
 
   // Custom cursor effect
   useState(() => {
@@ -192,7 +189,6 @@ const Index = () => {
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onMouseEnter={playHover}
             >
               <Button 
                 onClick={() => {
@@ -208,7 +204,6 @@ const Index = () => {
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onMouseEnter={playHover}
                 >
                   <Button 
                     variant="outline"

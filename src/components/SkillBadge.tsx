@@ -1,6 +1,4 @@
 import { Code2, Database, Cloud, Cpu, GitBranch, Container, Brain, Eye, MessageSquare, Sparkles } from "lucide-react";
-import { useSound } from "@/hooks/useSound";
-import hoverSound from "@/assets/hover-sound.mp3";
 import { motion } from "framer-motion";
 
 interface SkillBadgeProps {
@@ -33,7 +31,6 @@ const skillIcons: Record<string, any> = {
 
 export const SkillBadge = ({ skill, index }: SkillBadgeProps) => {
   const Icon = skillIcons[skill];
-  const playHover = useSound(hoverSound, 0.15);
   
   return (
     <motion.div 
@@ -53,7 +50,6 @@ export const SkillBadge = ({ skill, index }: SkillBadgeProps) => {
       }}
       whileTap={{ scale: 0.95 }}
       className="group flex flex-col items-center justify-center gap-2 rounded-lg bg-card backdrop-blur-sm px-4 py-6 border border-border/50 cursor-pointer"
-      onMouseEnter={playHover}
     >
       <motion.div
         whileHover={{ rotate: 360, scale: 1.2 }}
