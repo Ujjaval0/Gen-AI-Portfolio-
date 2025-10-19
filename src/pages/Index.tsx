@@ -8,7 +8,9 @@ import neuralOptimizerImg from "@/assets/neural-optimizer.jpg";
 import contentGeneratorImg from "@/assets/content-generator.jpg";
 import cvPipelineImg from "@/assets/cv-pipeline.jpg";
 import rlAgentImg from "@/assets/rl-agent.jpg";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { SplitText } from "@/components/SplitText";
+import { useMagneticPull } from "@/hooks/useMagneticPull";
 
 const projects = [
   {
@@ -80,52 +82,35 @@ const skills = [
 
 const Index = () => {
   const [resumeOpen, setResumeOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
 
-  // Custom cursor effect
-  useState(() => {
-    const cursorDot = document.createElement('div');
-    const cursorOutline = document.createElement('div');
-    
-    cursorDot.classList.add('cursor-dot');
-    cursorOutline.classList.add('cursor-outline');
-    
-    document.body.appendChild(cursorDot);
-    document.body.appendChild(cursorOutline);
-    
-    const moveCursor = (e: MouseEvent) => {
-      cursorDot.style.left = `${e.clientX}px`;
-      cursorDot.style.top = `${e.clientY}px`;
-      cursorOutline.style.left = `${e.clientX - 16}px`;
-      cursorOutline.style.top = `${e.clientY - 16}px`;
-    };
-    
-    const handleHover = (e: Event) => {
-      const target = e.target as HTMLElement;
-      if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button')) {
-        document.body.classList.add('cursor-hover');
-      } else {
-        document.body.classList.remove('cursor-hover');
-      }
-    };
-    
-    window.addEventListener('mousemove', moveCursor);
-    document.addEventListener('mouseover', handleHover);
-    
-    return () => {
-      window.removeEventListener('mousemove', moveCursor);
-      document.removeEventListener('mouseover', handleHover);
-      document.body.removeChild(cursorDot);
-      document.body.removeChild(cursorOutline);
-      document.body.classList.remove('cursor-hover');
-    };
-  });
+  // Magnetic pull for buttons
+  const projectButtonMagnetic = useMagneticPull({ strength: 0.4, radius: 100 });
+  const resumeButtonMagnetic = useMagneticPull({ strength: 0.4, radius: 100 });
+
+  // Enhanced transition settings
+  const springTransition = {
+    type: "spring" as const,
+    stiffness: 260,
+    damping: 20,
+  };
+
+  const smoothTransition = {
+    duration: 0.6,
+    ease: "easeOut" as const,
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative min-h-[70vh] flex items-center px-4 md:px-6 pt-24 md:pt-32 pb-16 md:pb-20 overflow-hidden">
+      <motion.section 
+        className="relative min-h-[70vh] flex items-center px-4 md:px-6 pt-24 md:pt-32 pb-16 md:pb-20 overflow-hidden"
+        style={{ opacity, scale }}
+      >
         <motion.div
           className="absolute inset-0 pointer-events-none"
           initial={{ opacity: 0 }}
@@ -157,25 +142,23 @@ const Index = () => {
             className="text-xs uppercase tracking-wider text-muted-foreground mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={smoothTransition}
           >
             AI ENGINEER
           </motion.p>
           
-          <motion.h1 
+          <SplitText
+            text="I build reliable, production-ready AI features and full-stack apps."
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight max-w-4xl"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            I build reliable, production-ready AI features and full-stack apps.
-          </motion.h1>
+            delay={0.3}
+            stagger={0.02}
+          />
           
           <motion.p 
             className="text-lg text-muted-foreground mb-10 max-w-2xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ ...smoothTransition, delay: 0.8 }}
           >
             Focused on pragmatic, high-impact solutions: fast iterations, clean architecture, and measurable outcomes.
           </motion.p>
@@ -184,11 +167,17 @@ const Index = () => {
             className="flex items-center gap-4 flex-wrap"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ ...smoothTransition, delay: 1 }}
           >
             <motion.div
+              ref={projectButtonMagnetic.ref as any}
+              style={{
+                x: projectButtonMagnetic.position.x,
+                y: projectButtonMagnetic.position.y,
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              transition={springTransition}
             >
               <Button 
                 onClick={() => {
@@ -202,8 +191,14 @@ const Index = () => {
             <Dialog open={resumeOpen} onOpenChange={setResumeOpen}>
               <DialogTrigger asChild>
                 <motion.div
+                  ref={resumeButtonMagnetic.ref as any}
+                  style={{
+                    x: resumeButtonMagnetic.position.x,
+                    y: resumeButtonMagnetic.position.y,
+                  }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  transition={springTransition}
                 >
                   <Button 
                     variant="outline"
@@ -250,7 +245,7 @@ const Index = () => {
             </Dialog>
           </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Projects Section */}
       <section id="projects" className="py-16 md:py-20 px-4 md:px-6 bg-muted/30">
@@ -259,8 +254,8 @@ const Index = () => {
             className="text-3xl md:text-4xl font-bold text-foreground mb-3"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={smoothTransition}
           >
             Selected Projects
           </motion.h2>
@@ -269,25 +264,34 @@ const Index = () => {
             className="text-sm md:text-base text-muted-foreground mb-12 md:mb-16"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ ...smoothTransition, delay: 0.1 }}
           >
             A few focused examples. Code and demos available on request.
           </motion.p>
 
-          <div className="space-y-8">
-            {projects.map((project, index) => (
-              <motion.div 
-                key={project.title}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <ProjectCard {...project} index={index} />
-              </motion.div>
-            ))}
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div 
+              className="space-y-8"
+              layout
+            >
+              {projects.map((project, index) => (
+                <motion.div 
+                  key={project.title}
+                  layout
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ 
+                    ...springTransition,
+                    delay: index * 0.1 
+                  }}
+                >
+                  <ProjectCard {...project} index={index} />
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </section>
 
@@ -298,8 +302,8 @@ const Index = () => {
             className="text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={springTransition}
           >
             About Me
           </motion.h2>
@@ -309,8 +313,8 @@ const Index = () => {
               className="transition-all duration-300 hover:text-foreground"
               initial={{ opacity: 0, x: -100 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ ...smoothTransition, delay: 0.1 }}
               whileHover={{ x: 10, scale: 1.02 }}
             >
               I'm an AI Engineer passionate about pushing the boundaries of what's possible with machine learning.
@@ -322,8 +326,8 @@ const Index = () => {
               className="transition-all duration-300 hover:text-foreground"
               initial={{ opacity: 0, x: -100 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.3 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ ...smoothTransition, delay: 0.3 }}
               whileHover={{ x: 10, scale: 1.02 }}
             >
               My expertise spans across deep learning architectures, natural language processing, and computer vision.
@@ -351,21 +355,26 @@ const Index = () => {
             className="text-3xl md:text-4xl font-bold text-foreground mb-8 md:mb-12"
             initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={springTransition}
           >
             Technical Skills
           </motion.h2>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
-            {skills.map((skill, index) => (
-              <SkillBadge
-                key={skill}
-                skill={skill}
-                index={index}
-              />
-            ))}
-          </div>
+          <motion.div 
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6"
+            layout
+          >
+            <AnimatePresence>
+              {skills.map((skill, index) => (
+                <SkillBadge
+                  key={skill}
+                  skill={skill}
+                  index={index}
+                />
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </section>
 

@@ -1,9 +1,16 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { SmoothTabs } from "./SmoothTabs";
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
+
+  const tabs = [
+    { id: "projects", label: "Projects", href: "#projects" },
+    { id: "about", label: "About", href: "#about" },
+    { id: "skills", label: "Skills", href: "#skills" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,36 +71,12 @@ const Navigation = () => {
             </motion.a>
           </motion.div>
           
-          <motion.div 
-            className="flex items-center gap-6"
+          <motion.div
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <motion.a
-              href="#projects"
-              className="text-sm text-foreground hover:text-primary transition-colors duration-200"
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Projects
-            </motion.a>
-            <motion.a
-              href="#about"
-              className="text-sm text-foreground hover:text-primary transition-colors duration-200"
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              About
-            </motion.a>
-            <motion.a
-              href="#skills"
-              className="text-sm text-foreground hover:text-primary transition-colors duration-200"
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Skills
-            </motion.a>
+            <SmoothTabs tabs={tabs} />
           </motion.div>
         </div>
       </div>
