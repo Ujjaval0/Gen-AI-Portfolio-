@@ -4,4 +4,4 @@ export const API_BASE_URL = import.meta.env.PROD
     : 'http://localhost:8000';  // Development: Use local backend
 
 export const CHAT_ENDPOINT = `${API_BASE_URL}/chat`;
-export const HEALTH_ENDPOINT = `${API_BASE_URL}/health`;
+export const HEALTH_ENDPOINT = `${API_BASE_URL}/chat`; // Same endpoint handles health
