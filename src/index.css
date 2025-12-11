@@ -2,13 +2,105 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Font Definitions */
+@font-face {
+  font-family: 'Ppneuemontreal Variable';
+  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  font-weight: 530;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dmmono';
+  src: url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&display=swap');
+  font-weight: 530;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Custom Font Classes */
+.font-heading {
+  font-family: 'Ppneuemontreal Variable', Arial, sans-serif;
+  font-weight: 530;
+  font-style: normal;
+}
+
+.font-header-footer {
+  font-family: 'Dmmono', Arial, sans-serif;
+  font-weight: 530;
+  font-style: normal;
+}
+
+/* Performance Optimizations */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize animations for better performance */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    /* Black Mode Portfolio Design System */
+    /* Light Mode Portfolio Design System (Default) */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 8%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
+
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 94%;
+    --secondary-foreground: 0 0% 8%;
+
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 280 65% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 221 83% 53%;
+
+    --radius: 0.75rem;
+
+    /* Custom design tokens for light mode */
+    --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%) 0%, hsl(221 83% 63%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(280 65% 60%) 0%, hsl(221 83% 53%) 100%);
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.15);
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.08);
+    --shadow-glow: 0 0 30px hsl(221 83% 53% / 0.2);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    /* Dark Mode Portfolio Design System */
     --background: 0 0% 4%;
     --foreground: 0 0% 98%;
 
@@ -37,9 +129,7 @@ All colors MUST be HSL.
     --input: 0 0% 15%;
     --ring: 221 83% 53%;
 
-    --radius: 0.75rem;
-
-    /* Custom design tokens */
+    /* Custom design tokens for dark mode */
     --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%) 0%, hsl(221 83% 63%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(280 65% 60%) 0%, hsl(221 83% 53%) 100%);
     --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.3);
@@ -47,59 +137,24 @@ All colors MUST be HSL.
     --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.6);
     --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.4);
     --shadow-glow: 0 0 30px hsl(221 83% 53% / 0.3);
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .dark {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 98%;
-
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 0 0% 6%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 221 83% 53%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 60%;
-
-    --accent: 280 65% 60%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 63% 50%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 221 83% 53%;
-
-    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.3);
-    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.5);
-    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.6);
-    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.4);
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
 
   body {
     @apply bg-background text-foreground;
     font-family: 'Geist', 'GeistSans Fallback', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   }
-  
+
   html {
     scroll-behavior: smooth;
   }
-  
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -109,4 +164,3 @@ All colors MUST be HSL.
     scrollbar-width: none;
   }
 }
-

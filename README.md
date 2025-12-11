@@ -1,73 +1,91 @@
-# Welcome to your Lovable project
+# AI Engineer Portfolio
 
-## Project info
+A modern, responsive portfolio website showcasing AI and machine learning expertise. Built with React, TypeScript, and Framer Motion for smooth animations.
 
-**URL**: https://lovable.dev/projects/f182e9a4-3c16-4ed3-9665-3260c524c4d6
+## Features
 
-## How can I edit this code?
+- **Modern Design**: Clean, professional interface with smooth animations
+- **Responsive Layout**: Optimized for all device sizes
+- **Interactive Elements**: Magnetic pull effects, smooth transitions, and scroll animations
+- **Project Showcase**: Detailed project cards with technology stacks
+- **Skills Display**: Animated skill badges with hover effects
+- **Contact Integration**: Direct links to GitHub, LinkedIn, and email
 
-There are several ways of editing your application.
+## Technologies Used
 
-**Use Lovable**
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS, shadcn/ui components
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Routing**: React Router DOM
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/f182e9a4-3c16-4ed3-9665-3260c524c4d6) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js (v18 or higher)
+- npm or yarn
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. Clone the repository:
+```bash
+git clone <your-repo-url>
+cd ai-engineer-portf-motion
+```
 
-Follow these steps:
+2. Install dependencies:
+```bash
+npm install
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. Open your browser and navigate to `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Available Scripts
 
-**Use GitHub Codespaces**
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components
+│   └── ...             # Custom components
+├── hooks/              # Custom React hooks
+├── pages/              # Page components
+├── assets/             # Images and static assets
+└── lib/                # Utility functions
+```
 
-This project is built with:
+## Customization
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Adding Projects
+Edit the `projects` array in `src/pages/Index.tsx` to add or modify your projects.
 
-## How can I deploy this project?
+### Updating Skills
+Modify the `skills` array in `src/pages/Index.tsx` to showcase your technical skills.
 
-Simply open [Lovable](https://lovable.dev/projects/f182e9a4-3c16-4ed3-9665-3260c524c4d6) and click on Share -> Publish.
+### Styling
+The project uses Tailwind CSS for styling. Customize colors and themes in `tailwind.config.ts`.
 
-## Can I connect a custom domain to my Lovable project?
+## Deployment
 
-Yes, you can!
+Build the project for production:
+```bash
+npm run build
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+The built files will be in the `dist` directory, ready for deployment to any static hosting service.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## License
+
+This project is open source and available under the [MIT License](LICENSE).

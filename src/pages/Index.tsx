@@ -1,8 +1,11 @@
 import { Navigation } from "@/components/Navigation";
+import { ResumeChatBox } from "@/components/ResumeChatBox";
 import { ProjectCard } from "@/components/ProjectCard";
-import { SkillBadge } from "@/components/SkillBadge";
+import { SkillCategory } from "@/components/SkillCategory";
+import { WorkflowStep } from "@/components/WorkflowStep";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Github, Linkedin, Mail, Lightbulb, Code, TestTube, Rocket } from "lucide-react";
 import { useState } from "react";
 import neuralOptimizerImg from "@/assets/neural-optimizer.jpg";
 import contentGeneratorImg from "@/assets/content-generator.jpg";
@@ -10,7 +13,8 @@ import cvPipelineImg from "@/assets/cv-pipeline.jpg";
 import rlAgentImg from "@/assets/rl-agent.jpg";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { SplitText } from "@/components/SplitText";
-import { useMagneticPull } from "@/hooks/useMagneticPull";
+import { ScrollIndicator } from "@/components/ScrollIndicator";
+
 
 const projects = [
   {
@@ -50,208 +54,204 @@ const projects = [
   },
 ];
 
-const skills = [
-  "Deep Learning",
-  "Neural Networks",
-  "Computer Vision",
-  "NLP",
-  "Reinforcement Learning",
-  "LLMs",
-  "Python",
-  "TypeScript",
-  "C++",
-  "SQL",
-  "Rust",
-  "PyTorch",
-  "TensorFlow",
-  "Scikit-learn",
-  "Hugging Face",
-  "LangChain",
-  "OpenCV",
-  "FastAPI",
-  "Docker",
-  "AWS SageMaker",
-  "Google Cloud AI",
-  "MLflow",
-  "Weights & Biases",
-  "Kubernetes",
-  "React",
-  "Node.js",
-  "Git",
+const skillCategories = [
+  {
+    title: "AGENTIC AI & ORCHESTRATION",
+    skills: ["LangChain", "LangGraph", "LangSmith", "CrewAI", "AutoGen", "Prompt Engineering"],
+    priority: true,
+  },
+  {
+    title: "VECTOR DB & RAG",
+    skills: ["Pinecone", "Weaviate", "ChromaDB", "Embedding Models", "Semantic Search"],
+    priority: false,
+  },
+  {
+    title: "LLM & MODELS",
+    skills: ["OpenAI GPT-4", "Anthropic Claude", "Hugging Face", "Fine-tuning", "Llama"],
+    priority: false,
+  },
+  {
+    title: "EVALUATION & OBSERVABILITY",
+    skills: ["LangSmith", "Arize Phoenix", "Weights & Biases", "Custom Eval Frameworks"],
+    priority: false,
+  },
+  {
+    title: "CORE LANGUAGES & INFRA",
+    skills: ["Python", "TypeScript", "FastAPI", "Docker", "AWS SageMaker", "Kubernetes"],
+    priority: false,
+  },
+];
+
+const workflowSteps = [
+  {
+    number: "01",
+    title: "Problem Definition",
+    description: "Define clear objectives, success metrics, and constraints. Analyze data availability and quality. Identify potential risks and establish baseline performance benchmarks.",
+    icon: Lightbulb,
+  },
+  {
+    number: "02",
+    title: "System Design",
+    description: "Design scalable architecture, select optimal models and frameworks. Plan data pipelines, API contracts, and infrastructure requirements. Create technical specifications and architecture diagrams.",
+    icon: Code,
+  },
+  {
+    number: "03",
+    title: "Build & Validate",
+    description: "Implement features iteratively with continuous testing. Conduct rigorous evaluation using custom metrics. Optimize for performance, accuracy, and resource efficiency.",
+    icon: TestTube,
+  },
+  {
+    number: "04",
+    title: "Deploy & Monitor",
+    description: "Deploy with CI/CD pipelines and comprehensive monitoring. Track model performance, user feedback, and system health. Iterate based on real-world data and evolving requirements.",
+    icon: Rocket,
+  },
 ];
 
 const Index = () => {
   const [resumeOpen, setResumeOpen] = useState(false);
   const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
-
-  // Magnetic pull for buttons
-  const projectButtonMagnetic = useMagneticPull({ strength: 0.4, radius: 100 });
-  const resumeButtonMagnetic = useMagneticPull({ strength: 0.4, radius: 100 });
+  const opacity = useTransform(scrollYProgress, [0, 0.15], [1, 0.8]);
+  const scale = useTransform(scrollYProgress, [0, 0.15], [1, 0.98]);
 
   // Enhanced transition settings
   const springTransition = {
     type: "spring" as const,
-    stiffness: 260,
-    damping: 20,
+    stiffness: 300,
+    damping: 25,
   };
 
   const smoothTransition = {
-    duration: 0.6,
+    duration: 0.5,
     ease: "easeOut" as const,
+  };
+
+  const gentleTransition = {
+    duration: 0.3,
+    ease: "easeInOut" as const,
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
 
-      {/* Hero Section */}
-      <motion.section 
-        className="relative min-h-[70vh] flex items-center px-4 md:px-6 pt-24 md:pt-32 pb-16 md:pb-20 overflow-hidden"
+      {/* Hero Section with Chat Widget */}
+      <motion.section
+        className="relative min-h-[90vh] sm:min-h-[95vh] flex items-center px-3 sm:px-4 md:px-6 pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-12 sm:pb-16 md:pb-20 lg:pb-24 overflow-hidden"
         style={{ opacity, scale }}
       >
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <motion.div
-            className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl"
-            animate={{ 
-              x: [0, 50, 0],
-              y: [0, 30, 0],
-              scale: [1, 1.2, 1]
-            }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl"
-            animate={{ 
-              x: [0, -30, 0],
-              y: [0, 50, 0],
-              scale: [1, 1.3, 1]
-            }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </motion.div>
+        {/* Background animations removed */}
 
-        <div className="container mx-auto max-w-5xl relative z-10">
-          <motion.p 
-            className="text-xs uppercase tracking-wider text-muted-foreground mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={smoothTransition}
-          >
-            AI ENGINEER
-          </motion.p>
-          
-          <SplitText
-            text="I build reliable, production-ready AI features and full-stack apps."
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight max-w-4xl"
-            delay={0.3}
-            stagger={0.02}
-          />
-          
-          <motion.p 
-            className="text-lg text-muted-foreground mb-10 max-w-2xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...smoothTransition, delay: 0.8 }}
-          >
-            Focused on pragmatic, high-impact solutions: fast iterations, clean architecture, and measurable outcomes.
-          </motion.p>
+        {/* Gradient Overlay for better text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background pointer-events-none z-[1]" />
 
-          <motion.div 
-            className="flex items-center gap-4 flex-wrap"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...smoothTransition, delay: 1 }}
-          >
-            <motion.div
-              ref={projectButtonMagnetic.ref as any}
-              style={{
-                x: projectButtonMagnetic.position.x,
-                y: projectButtonMagnetic.position.y,
-              }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={springTransition}
-            >
-              <Button 
-                onClick={() => {
-                  document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="bg-foreground text-background hover:bg-foreground/90 px-6"
+        <div className="container mx-auto max-w-7xl relative z-10">
+          <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-start">
+            {/* Main Hero Content */}
+            <div className="flex-1">
+              <motion.p
+                className="text-xs uppercase tracking-wider text-muted-foreground mb-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={smoothTransition}
               >
-                View Projects
-              </Button>
-            </motion.div>
-            <Dialog open={resumeOpen} onOpenChange={setResumeOpen}>
-              <DialogTrigger asChild>
-                <motion.div
-                  ref={resumeButtonMagnetic.ref as any}
-                  style={{
-                    x: resumeButtonMagnetic.position.x,
-                    y: resumeButtonMagnetic.position.y,
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={springTransition}
-                >
-                  <Button 
-                    variant="outline"
-                    className="px-6"
-                  >
-                    View Resume
-                  </Button>
-                </motion.div>
-              </DialogTrigger>
-              <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
-                <DialogHeader>
-                  <DialogTitle>Resume</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-6 text-sm">
-                  <section>
-                    <h3 className="text-lg font-semibold mb-2">Experience</h3>
-                    <div className="space-y-4">
-                      <div>
-                        <h4 className="font-medium">Senior AI Engineer - Tech Company</h4>
-                        <p className="text-muted-foreground text-xs">2022 - Present</p>
-                        <ul className="list-disc list-inside mt-2 text-muted-foreground space-y-1">
-                          <li>Led development of production AI systems serving millions of users</li>
-                          <li>Improved model inference speed by 40% through optimization</li>
-                          <li>Mentored junior engineers on ML best practices</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </section>
-                  
-                  <section>
-                    <h3 className="text-lg font-semibold mb-2">Education</h3>
-                    <div>
-                      <h4 className="font-medium">Master of Science in Computer Science</h4>
-                      <p className="text-muted-foreground text-xs">University Name - 2020</p>
-                    </div>
-                  </section>
+                AI ENGINEER
+              </motion.p>
 
-                  <section>
-                    <h3 className="text-lg font-semibold mb-2">Skills</h3>
-                    <p className="text-muted-foreground">Python, PyTorch, TensorFlow, Deep Learning, NLP, Computer Vision, MLOps</p>
-                  </section>
-                </div>
-              </DialogContent>
-            </Dialog>
-          </motion.div>
+              <SplitText
+                text="I build reliable, production-ready AI agents and agentic systems that actually ship."
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight max-w-4xl"
+                delay={0.3}
+                stagger={0.02}
+              />
+
+              <motion.p
+                className="text-lg text-muted-foreground mb-10 max-w-2xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ ...smoothTransition, delay: 0.8 }}
+              >
+                Focused on: Multi-agent orchestration, RAG pipelines, evaluation-driven development, and production reliability.
+              </motion.p>
+
+              <motion.div
+                className="flex items-center gap-4 flex-wrap"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ ...smoothTransition, delay: 1 }}
+              >
+                <Button
+                  onClick={() => {
+                    document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="bg-foreground text-background hover:bg-foreground/90 px-6"
+                >
+                  View Projects
+                </Button>
+                <Dialog open={resumeOpen} onOpenChange={setResumeOpen}>
+                  <DialogTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className="px-6"
+                    >
+                      Resume
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle>Resume</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-6 text-sm">
+                      <section>
+                        <h3 className="text-lg font-semibold mb-2">Experience</h3>
+                        <div className="space-y-4">
+                          <div>
+                            <h4 className="font-medium">Senior AI Engineer - Tech Company</h4>
+                            <p className="text-muted-foreground text-xs">2022 - Present</p>
+                            <ul className="list-disc list-inside mt-2 text-muted-foreground space-y-1">
+                              <li>Led development of production AI systems serving millions of users</li>
+                              <li>Improved model inference speed by 40% through optimization</li>
+                              <li>Mentored junior engineers on ML best practices</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section>
+                        <h3 className="text-lg font-semibold mb-2">Education</h3>
+                        <div>
+                          <h4 className="font-medium">Master of Science in Computer Science</h4>
+                          <p className="text-muted-foreground text-xs">University Name - 2020</p>
+                        </div>
+                      </section>
+
+                      <section>
+                        <h3 className="text-lg font-semibold mb-2">Skills</h3>
+                        <p className="text-muted-foreground">Python, PyTorch, TensorFlow, Deep Learning, NLP, Computer Vision, MLOps</p>
+                      </section>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </motion.div>
+            </div>
+
+            {/* Chat Widget - Right Side */}
+            <div className="hidden lg:block w-full lg:w-auto flex-shrink-0">
+              <ResumeChatBox />
+            </div>
+          </div>
         </div>
+
+        {/* Scroll Indicator */}
+        <ScrollIndicator />
       </motion.section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-16 md:py-20 px-4 md:px-6 bg-muted/30">
-        <div className="container mx-auto max-w-5xl">
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-foreground mb-3"
+      <section id="projects" className="py-16 md:py-20 px-4 md:px-6">
+        <div className="container mx-auto max-w-7xl">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-foreground mb-3 font-heading"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -259,8 +259,8 @@ const Index = () => {
           >
             Selected Projects
           </motion.h2>
-          
-          <motion.p 
+
+          <motion.p
             className="text-sm md:text-base text-muted-foreground mb-12 md:mb-16"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -271,88 +271,77 @@ const Index = () => {
           </motion.p>
 
           <AnimatePresence mode="wait">
-            <motion.div 
-              className="space-y-8"
-              layout
-            >
-              {projects.map((project, index) => (
-                <motion.div 
-                  key={project.title}
-                  layout
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ 
-                    ...springTransition,
-                    delay: index * 0.1 
-                  }}
-                >
-                  <ProjectCard {...project} index={index} />
-                </motion.div>
-              ))}
-            </motion.div>
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-stretch"
+                layout
+              >
+                {projects.map((project, index) => (
+                  <motion.div
+                    key={project.title}
+                    layout
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{
+                      ...springTransition,
+                      delay: index * 0.1
+                    }}
+                    className="flex"
+                  >
+                    <ProjectCard {...project} index={index} />
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
           </AnimatePresence>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-16 md:py-20 px-4 md:px-6">
-        <div className="container mx-auto max-w-5xl">
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+      {/* Workflow Section */}
+      <section id="workflow" className="py-16 md:py-20 px-4 md:px-6">
+        <div className="container mx-auto max-w-7xl">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-foreground mb-3 font-heading"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={springTransition}
+            transition={smoothTransition}
           >
-            About Me
+            Workflow
           </motion.h2>
-          
-          <div className="space-y-4 md:space-y-6 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
-            <motion.p 
-              className="transition-all duration-300 hover:text-foreground"
-              initial={{ opacity: 0, x: -100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ ...smoothTransition, delay: 0.1 }}
-              whileHover={{ x: 10, scale: 1.02 }}
-            >
-              I'm an AI Engineer passionate about pushing the boundaries of what's possible with machine learning.
-              With a strong foundation in mathematics and computer science, I specialize in developing cutting-edge
-              AI systems that solve real-world problems.
-            </motion.p>
-            
-            <motion.p 
-              className="transition-all duration-300 hover:text-foreground"
-              initial={{ opacity: 0, x: -100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ ...smoothTransition, delay: 0.3 }}
-              whileHover={{ x: 10, scale: 1.02 }}
-            >
-              My expertise spans across deep learning architectures, natural language processing, and computer vision.
-              I've successfully deployed production-grade AI models that process millions of requests daily, achieving
-              significant improvements in accuracy and performance.
-            </motion.p>
+
+          <motion.p
+            className="text-sm md:text-base text-muted-foreground mb-12 md:mb-16"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ ...smoothTransition, delay: 0.1 }}
+          >
+            My systematic approach to building production-ready AI systems
+          </motion.p>
+
+          <div className="max-w-3xl mx-auto">
+            {workflowSteps.map((step, index) => (
+              <WorkflowStep
+                key={step.number}
+                number={step.number}
+                title={step.title}
+                description={step.description}
+                icon={step.icon}
+                index={index}
+              />
+            ))}
           </div>
         </div>
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-16 md:py-20 px-4 md:px-6 bg-muted/30 relative overflow-hidden">
-        <motion.div
-          className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-          animate={{ 
-            x: [0, -100, 0],
-            y: [0, 100, 0],
-            scale: [1, 1.5, 1]
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        />
-        
-        <div className="container mx-auto max-w-5xl relative z-10">
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-foreground mb-8 md:mb-12"
+      <section id="skills" className="py-16 md:py-20 px-4 md:px-6 relative overflow-hidden">
+
+        <div className="container mx-auto max-w-7xl relative z-10">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-foreground mb-8 md:mb-12 font-heading"
             initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -361,16 +350,18 @@ const Index = () => {
             Technical Skills
           </motion.h2>
 
-          <motion.div 
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6"
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
             layout
           >
             <AnimatePresence>
-              {skills.map((skill, index) => (
-                <SkillBadge
-                  key={skill}
-                  skill={skill}
+              {skillCategories.map((category, index) => (
+                <SkillCategory
+                  key={category.title}
+                  title={category.title}
+                  skills={category.skills}
                   index={index}
+                  priority={category.priority}
                 />
               ))}
             </AnimatePresence>
@@ -378,22 +369,151 @@ const Index = () => {
         </div>
       </section>
 
+      {/* About Section */}
+      <section id="about" className="py-16 md:py-20 px-4 md:px-6">
+        <div className="container mx-auto max-w-7xl">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8 font-heading"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={springTransition}
+          >
+            About Me
+          </motion.h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+            {/* Profile Photo */}
+            <motion.div
+              className="flex justify-center lg:justify-end order-2 lg:order-2"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ ...springTransition, delay: 0.2 }}
+            >
+              <motion.div
+                className="relative"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl">
+                  <motion.img
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+                    alt="AI Engineer Profile"
+                    className="w-full h-full object-cover"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                  />
+                </div>
+                <motion.div
+                  className="absolute -top-4 -right-4 w-8 h-8 bg-primary rounded-full flex items-center justify-center"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    rotate: [0, 10, 0]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <span className="text-background text-sm">🚀</span>
+                </motion.div>
+              </motion.div>
+            </motion.div>
+
+            {/* About Text */}
+            <motion.div
+              className="space-y-4 md:space-y-6 text-base md:text-lg text-muted-foreground leading-relaxed order-1 lg:order-1"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ ...smoothTransition, delay: 0.1 }}
+            >
+              <motion.p
+                className="transition-all duration-300 hover:text-foreground"
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ ...smoothTransition, delay: 0.1 }}
+                whileHover={{ x: 10, scale: 1.02 }}
+              >
+                I'm an AI Engineer passionate about pushing the boundaries of what's possible with machine learning.
+                With a strong foundation in mathematics and computer science, I specialize in developing cutting-edge
+                AI systems that solve real-world problems.
+              </motion.p>
+
+              <motion.p
+                className="transition-all duration-300 hover:text-foreground"
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ ...smoothTransition, delay: 0.3 }}
+                whileHover={{ x: 10, scale: 1.02 }}
+              >
+                My expertise spans across deep learning architectures, natural language processing, and computer vision.
+                I've successfully deployed production-grade AI models that process millions of requests daily, achieving
+                significant improvements in accuracy and performance.
+              </motion.p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="py-8 md:py-12 px-4 md:px-6">
-        <div className="container mx-auto max-w-5xl">
-          <motion.div 
-            className="flex items-center justify-center"
+      <footer className="py-8 md:py-12 px-4 md:px-6 font-header-footer border-t border-border">
+        <div className="container mx-auto max-w-7xl">
+          <motion.div
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <motion.p 
-              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            <motion.p
+              className="text-sm text-muted-foreground"
               whileHover={{ scale: 1.05 }}
             >
-              © 2025 Ujjaval Bhardwaj
+              © 2025 Ujjaval
             </motion.p>
+
+            <div className="flex items-center gap-4">
+              <motion.a
+                href="https://github.com/Ujjaval0"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1.5 text-sm"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Github className="h-4 w-4" />
+                <span>GitHub</span>
+              </motion.a>
+
+              <motion.a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=ujjavalbhardwaj6@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1.5 text-sm"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Mail className="h-4 w-4" />
+                <span>Email</span>
+              </motion.a>
+
+              <motion.a
+                href="https://www.linkedin.com/in/ujjaval-bhardwaj-94902b244"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1.5 text-sm"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Linkedin className="h-4 w-4" />
+                <span>LinkedIn</span>
+              </motion.a>
+            </div>
           </motion.div>
         </div>
       </footer>
@@ -402,3 +522,4 @@ const Index = () => {
 };
 
 export default Index;
+

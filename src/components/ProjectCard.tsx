@@ -25,49 +25,48 @@ export const ProjectCard = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <motion.div 
-          className="group relative overflow-hidden rounded-lg bg-card border border-border cursor-pointer md:grid md:grid-cols-[350px_1fr] md:gap-6"
-          whileHover={{ 
-            scale: 1.02,
-            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)"
+        <motion.div
+          className="group relative overflow-hidden rounded-lg bg-card border border-border cursor-pointer flex flex-col h-full min-h-[420px]"
+          whileHover={{
+            y: -5,
+            boxShadow: "0 15px 30px rgba(0, 0, 0, 0.2)"
           }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
         >
-          <motion.div 
-            className="overflow-hidden md:h-full"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.5 }}
+          <motion.div
+            className="overflow-hidden w-full h-52 flex-shrink-0"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <motion.img 
-              src={image} 
-              alt={title} 
-              className="w-full h-full object-cover aspect-[16/9] md:aspect-square md:max-h-[280px]"
-              whileHover={{ scale: 1.15, rotate: 2 }}
-              transition={{ duration: 0.6 }}
+            <motion.img
+              src={image}
+              alt={title}
+              className="w-full h-full object-cover"
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
             />
           </motion.div>
-          <div className="p-6 space-y-4 flex flex-col justify-center">
-            <motion.h3 
-              className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors"
-              whileHover={{ x: 10 }}
-              transition={{ duration: 0.2 }}
-            >
-              {title}
-            </motion.h3>
-            <motion.p 
-              className="text-muted-foreground leading-relaxed text-sm line-clamp-3"
-              whileHover={{ x: 5 }}
-            >
-              {description}
-            </motion.p>
-            
-            <div className="flex flex-wrap gap-2">
+          <div className="p-6 space-y-4 flex flex-col flex-grow">
+            <div className="flex-grow">
+              <motion.h3
+                className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors mb-3"
+              >
+                {title}
+              </motion.h3>
+              <motion.p
+                className="text-muted-foreground leading-relaxed text-sm line-clamp-3"
+              >
+                {description}
+              </motion.p>
+            </div>
+
+            <div className="flex flex-wrap gap-2 pt-2">
               {techStack.slice(0, 4).map((tech, idx) => (
                 <motion.span
                   key={tech}
                   className="rounded-md bg-muted px-2.5 py-1 text-xs text-muted-foreground font-medium"
-                  whileHover={{ scale: 1.15, y: -3 }}
-                  initial={{ opacity: 0, y: 20 }}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
                 >
@@ -80,16 +79,16 @@ export const ProjectCard = ({
                 </span>
               )}
             </div>
-            
-            <div className="flex gap-3 pt-2">
+
+            <div className="flex gap-3 pt-3 mt-auto border-t border-border/50">
               {githubUrl && (
                 <motion.a
                   href={githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-foreground text-xs px-3 py-1.5 rounded-md bg-muted hover:bg-primary/20"
+                  className="inline-flex items-center gap-2 text-foreground text-xs px-3 py-1.5 rounded-md bg-muted hover:bg-primary/20 transition-colors"
                   onClick={(e) => e.stopPropagation()}
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <Github className="h-3.5 w-3.5" />
@@ -101,9 +100,9 @@ export const ProjectCard = ({
                   href={liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-foreground text-xs px-3 py-1.5 rounded-md bg-muted hover:bg-primary/20"
+                  className="inline-flex items-center gap-2 text-foreground text-xs px-3 py-1.5 rounded-md bg-muted hover:bg-primary/20 transition-colors"
                   onClick={(e) => e.stopPropagation()}
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <ExternalLink className="h-3.5 w-3.5" />
@@ -114,21 +113,21 @@ export const ProjectCard = ({
           </div>
         </motion.div>
       </DialogTrigger>
-      
+
       <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl">{title}</DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-6">
           <div className="w-full overflow-hidden rounded-lg">
-            <img 
-              src={image} 
-              alt={title} 
+            <img
+              src={image}
+              alt={title}
               className="w-full object-cover"
             />
           </div>
-          
+
           <div className="space-y-4">
             <div>
               <h4 className="font-semibold mb-2">Description</h4>
@@ -136,7 +135,7 @@ export const ProjectCard = ({
                 {fullDescription || description}
               </p>
             </div>
-            
+
             <div>
               <h4 className="font-semibold mb-3">Technologies Used</h4>
               <div className="flex flex-wrap gap-2">
