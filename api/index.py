@@ -37,11 +37,7 @@ class ChatResponse(BaseModel):
     tokensUsed: int = 0
 
 @app.get("/")
-@app.get("/api")
-async def root():
-    return {"status": "ok", "message": "Resume Chatbot API is running"}
-
-@app.get("/api/health")
+@app.get("/health")
 async def health_check():
     return {
         "status": "healthy",
@@ -117,7 +113,7 @@ async def call_grok(user_message: str, conversation_history: list[dict] = []):
         print(f"Groq error: {e}")
         return None
 
-@app.post("/api/chat", response_model=ChatResponse)
+@app.post("/chat", response_model=ChatResponse)
 async def chat(message: ChatMessage):
     user_message = message.message.strip()
     conversation_history = message.conversationHistory
