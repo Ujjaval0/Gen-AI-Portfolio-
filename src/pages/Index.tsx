@@ -139,7 +139,7 @@ const Index = () => {
 
       {/* Hero Section with Chat Widget */}
       <motion.section
-        className="relative min-h-[90vh] sm:min-h-[95vh] flex items-center px-3 sm:px-4 md:px-6 pt-4 sm:pt-12 md:pt-16 lg:pt-20 pb-8 sm:pb-12 md:pb-16 lg:pb-20 overflow-hidden"
+        className="relative min-h-[90vh] sm:min-h-[95vh] flex items-center px-3 sm:px-4 md:px-6 pt-2 sm:pt-12 md:pt-16 lg:pt-20 pb-8 sm:pb-12 md:pb-16 lg:pb-20 overflow-hidden"
         style={{ opacity, scale }}
       >
         {/* Background animations removed */}
@@ -223,7 +223,7 @@ const Index = () => {
                         <h3 className="text-lg font-semibold mb-2">Education</h3>
                         <div className="space-y-3">
                           <div>
-                            <h4 className="font-medium">Bachelor’s in Computer Applications (BCA)</h4>
+                            <h4 className="font-medium">Bachelor's in Computer Applications (BCA)</h4>
                           </div>
                           <div>
                             <h4 className="font-medium">Diploma in Data Analytics</h4>
@@ -242,8 +242,8 @@ const Index = () => {
               </motion.div>
             </div>
 
-            {/* Chat Widget - Right Side */}
-            <div className="hidden lg:block lg:w-[384px] flex-shrink-0">
+            {/* Chat Widget - Right Side - Now visible on md (tablet) and up */}
+            <div className="hidden md:block md:w-[384px] lg:w-[384px] flex-shrink-0">
               <ResumeChatBox />
             </div>
           </div>
