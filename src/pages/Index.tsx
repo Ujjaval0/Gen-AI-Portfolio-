@@ -138,7 +138,7 @@ const Index = () => {
 
       {/* Hero Section with Chat Widget */}
       <motion.section
-        className="relative min-h-[90vh] sm:min-h-[90vh] lg:min-h-[95vh] flex items-center px-3 sm:px-4 md:px-6 lg:px-8 pt-0 sm:pt-8 md:pt-12 lg:pt-16 xl:pt-20 pb-6 sm:pb-10 md:pb-14 lg:pb-16 xl:pb-20 overflow-hidden"
+        className="relative min-h-[90vh] sm:min-h-[90vh] lg:min-h-[95vh] flex items-center px-4 md:px-6 pt-10 sm:pt-14 md:pt-16 lg:pt-20 pb-10 sm:pb-14 md:pb-16 lg:pb-20 overflow-hidden"
         style={{ opacity, scale }}
       >
         {/* Background animations removed */}
@@ -146,7 +146,7 @@ const Index = () => {
         {/* Gradient Overlay for better text contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background pointer-events-none z-[1]" />
 
-        <div className="container mx-auto max-w-[1600px] relative z-10 w-full">
+        <div className="container mx-auto max-w-7xl relative z-10 w-full">
           <div className="flex flex-col xl:flex-row gap-4 sm:gap-6 lg:gap-8 xl:gap-10 items-start justify-between">
             {/* Main Hero Content */}
             <div className="flex-1 w-full xl:max-w-[calc(100%-420px)]">
