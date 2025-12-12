@@ -1,9 +1,9 @@
-// API configuration for production and development
-// Set VITE_CHAT_API_URL in .env.local to use deployed backend
-export const CHAT_ENDPOINT =
-    import.meta.env.VITE_CHAT_API_URL ||
-    'https://terminal.zeabur.app/chat';
+// Central API Configuration
+// Best Practice: Set VITE_API_URL in your Vercel/Netlify environment variables.
 
-export const HEALTH_ENDPOINT =
-    import.meta.env.VITE_HEALTH_API_URL ||
-    'https://terminal.zeabur.app/health';
+// 1. Determine the Base URL (Priority: Env Var > Hardcoded Production URL)
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://terminal.zeabur.app';
+
+// 2. Export Helper Endpoints
+export const CHAT_ENDPOINT = `${API_BASE_URL}/chat`;
+export const HEALTH_ENDPOINT = `${API_BASE_URL}/health`;
