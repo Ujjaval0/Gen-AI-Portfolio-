@@ -139,7 +139,7 @@ const Index = () => {
 
       {/* Hero Section with Chat Widget */}
       <motion.section
-        className="relative min-h-[90vh] sm:min-h-[95vh] flex items-center px-3 sm:px-4 md:px-6 pt-12 sm:pt-16 md:pt-18 lg:pt-24 pb-12 sm:pb-16 md:pb-20 lg:pb-24 overflow-hidden"
+        className="relative min-h-[90vh] sm:min-h-[95vh] flex items-center px-3 sm:px-4 md:px-6 pt-4 sm:pt-12 md:pt-16 lg:pt-20 pb-8 sm:pb-12 md:pb-16 lg:pb-20 overflow-hidden"
         style={{ opacity, scale }}
       >
         {/* Background animations removed */}
