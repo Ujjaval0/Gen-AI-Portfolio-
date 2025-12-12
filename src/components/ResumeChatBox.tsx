@@ -1,259 +1,131 @@
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { CHAT_ENDPOINT } from "@/config/api";
+import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 
-interface Message {
-    role: "user" | "assistant" | "system";
-    content: string;
-    timestamp: Date;
-    tokens?: number;      // Tokens used for this message
-    provider?: string;    // Which AI provider responded
-}
+export const ResumeChatBox = () => {
+    const [displayedLines, setDisplayedLines] = useState<any[]>([]);
+    const [currentLineIndex, setCurrentLineIndex] = useState(0);
+    const [currentText, setCurrentText] = useState("");
+    const scrollRef = useRef<HTMLDivElement>(null);
 
-// Typing Dots Loading Component
-const TypingDots = () => (
-    <div className="flex items-center gap-1">
-        {[0, 1, 2].map((i) => (
-            <motion.div
-                key={i}
-                className="w-2 h-2 rounded-full bg-[#fbbf24]"
-                animate={{
-                    y: [0, -8, 0],
-                    opacity: [0.4, 1, 0.4],
-                }}
-                transition={{
-                    duration: 0.6,
-                    repeat: Infinity,
-                    delay: i * 0.15,
-                    ease: "easeInOut",
-                }}
-            />
-        ))}
-    </div>
-);
+    // THE SCRIPT: A "Self-Correcting" Financial Agent
+    const scriptLines = [
+        // 1. SETUP & CONFIG (Shows you understand parameters)
+        { text: "agent-cli run --mode autonomous --model gpt-4o --temp 0.1", cmd: true },
+        { text: ">> [SYSTEM] Initializing Vector Store (Pinecone env: production)...", color: "text-gray-400" },
+        { text: ">> [SYSTEM] Memory buffer loaded. Context window: 128k", color: "text-gray-400" },
 
-export function ResumeChatBox() {
-    const [messages, setMessages] = useState<Message[]>([
-        {
-            role: "system",
-            content: "~ Hey! I'm Portfolio Assistant. How can I help you?",
-            timestamp: new Date(),
-        },
-    ]);
-    const [inputMessage, setInputMessage] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
-    const [totalTokens, setTotalTokens] = useState(0);
-    const [currentProvider, setCurrentProvider] = useState("");
-    // Generate session ID once on component mount - cleared on page refresh
-    const [sessionId] = useState(() => crypto.randomUUID());
-    const [isTerminalHovered, setIsTerminalHovered] = useState(false);
-    const [isInputFocused, setIsInputFocused] = useState(false);
-    const scrollAreaRef = useRef<HTMLDivElement>(null);
-    const inputRef = useRef<HTMLInputElement>(null);
+        // 2. THE COMPLEX TASK
+        { text: ">> [INPUT] User: 'Compare our Q3 revenue growth against competitor X based on recent market data.'", color: "text-white" },
 
-    // Auto-scroll to bottom when new messages arrive
+        // 3. REASONING (Chain of Thought)
+        { text: ">> [PLANNER] Step 1: Retrieve internal Q3 reports.", color: "text-blue-400" },
+        { text: ">> [PLANNER] Step 2: Search web for Competitor X Q3 data.", color: "text-blue-400" },
+
+        // 4. RAG EXECUTION (Shows vector DB skills)
+        { text: ">> [RAG] Querying namespace 'financial-docs'...", color: "text-purple-400" },
+        { text: "   --> Retrieved 4 chunks. Top cosine_similarity: 0.89", color: "text-gray-500" },
+
+        // 5. THE "PROBLEM" (Evaluation / Guardrails)
+        { text: ">> [CRITIC] Evaluating retrieved context...", color: "text-yellow-400" },
+        { text: "!! ERROR: Internal data cutoff is Aug 2024. Q3 data missing.", color: "text-red-400" },
+
+        // 6. THE FIX (Tool Use / Orchestration - The "Senior" Skill)
+        { text: ">> [ROUTER] Rerouting to 'Financial_API_Tool'...", color: "text-purple-400" },
+        { text: ">> [TOOL] Executing GET /api/v1/revenue?ticker=COMP_X", color: "text-gray-300" },
+        { text: "   < 200 OK > Data received: $4.2B (+12% YoY)", color: "text-green-500" },
+
+        // 7. FINAL SYNTHESIS
+        { text: ">> [LLM] Synthesizing internal + external data...", color: "text-blue-400" },
+        { text: ">> [OUTPUT] Report Generated. Audit trail saved to /logs/f8a2.json", color: "text-green-400" },
+    ];
+
     useEffect(() => {
-        if (scrollAreaRef.current) {
-            const scrollContainer = scrollAreaRef.current.querySelector("[data-radix-scroll-area-viewport]");
-            if (scrollContainer) {
-                scrollContainer.scrollTop = scrollContainer.scrollHeight;
-            }
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
-    }, [messages]);
+    }, [displayedLines, currentText]);
 
-    const sendMessage = async (messageText?: string) => {
-        const textToSend = messageText || inputMessage.trim();
+    useEffect(() => {
+        if (currentLineIndex >= scriptLines.length) return;
 
-        if (!textToSend) return;
+        const lineData = scriptLines[currentLineIndex];
+        const fullText = lineData.text;
 
-        // Add user message to UI
-        const userMessage: Message = {
-            role: "user",
-            content: `$ ${textToSend}`,
-            timestamp: new Date(),
-        };
+        // Typing speed: Fast for logs, slower for "reasoning"
+        const typingSpeed = lineData.cmd ? 30 : 10;
 
-        setMessages((prev) => [...prev, userMessage]);
-        setInputMessage("");
-        setIsLoading(true);
+        if (currentText.length < fullText.length) {
+            const timeout = setTimeout(() => {
+                setCurrentText(fullText.slice(0, currentText.length + 1));
+            }, typingSpeed + Math.random() * 10);
+            return () => clearTimeout(timeout);
+        } else {
+            // Pause between lines to simulate "processing time"
+            const isError = lineData.text.includes("ERROR");
+            const isTool = lineData.text.includes("TOOL");
+            const pauseTime = isError || isTool ? 800 : 350; // Pause longer on errors/tools
 
-        try {
-            // Call backend API with session ID for memory management
-            const response = await fetch(CHAT_ENDPOINT, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    message: textToSend,
-                    sessionId: sessionId  // LangChain backend manages history
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to get response from server");
-            }
-
-            const data = await response.json();
-
-            // Update token counter
-            setTotalTokens((prev) => prev + (data.tokensUsed || 0));
-            setCurrentProvider(data.provider || "");
-
-            // Add assistant message with metadata
-            const assistantMessage: Message = {
-                role: "assistant",
-                content: data.response,
-                timestamp: new Date(),
-                tokens: data.tokensUsed,
-                provider: data.provider,
-            };
-
-            setMessages((prev) => [...prev, assistantMessage]);
-            // Note: Conversation history is now managed by backend session
-        } catch (error) {
-            console.error("Chat error:", error);
-
-            // Add error message
-            const errorMessage: Message = {
-                role: "system",
-                content: "[ERROR] Backend not connected\n→ cd backend && pip install -r requirements.txt\n→ Add API keys to .env\n→ uvicorn main:app --reload --port 8000",
-                timestamp: new Date(),
-            };
-
-            setMessages((prev) => [...prev, errorMessage]);
-        } finally {
-            setIsLoading(false);
+            const pause = setTimeout(() => {
+                setDisplayedLines((prev) => [...prev, lineData]);
+                setCurrentText("");
+                setCurrentLineIndex((prev) => prev + 1);
+            }, pauseTime);
+            return () => clearTimeout(pause);
         }
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        sendMessage();
-    };
+    }, [currentText, currentLineIndex]);
 
     return (
         <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
-            onMouseEnter={() => setIsTerminalHovered(true)}
-            onMouseLeave={() => setIsTerminalHovered(false)}
-            className="w-full max-w-[380px] sm:max-w-[380px] rounded-lg shadow-2xl overflow-hidden border border-[#1a1a1a] bg-gradient-to-b from-[#2d2d2d] to-[#1e1e1e] transition-all duration-300 relative"
-            style={{
-                cursor: isTerminalHovered ? 'url("data:image/svg+xml,%3Csvg width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M3 3L10.07 19.97L12.58 12.58L19.97 10.07L3 3Z\' fill=\'%2360a5fa\' stroke=\'%23fbbf24\' stroke-width=\'2\' stroke-linejoin=\'round\'/%3E%3C/svg%3E") 4 4, pointer' : 'default',
-                boxShadow: isInputFocused ? '0 0 30px rgba(96, 165, 250, 0.3)' : undefined,
-            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-full max-w-sm mx-auto shadow-2xl rounded-lg overflow-hidden bg-[#0d1117] border border-gray-800 font-mono text-xs sm:text-sm h-[550px] flex flex-col relative"
         >
-            {/* macOS Window Header with Traffic Lights */}
-            <div className="bg-[#2d2d2d] px-3 py-2.5 flex items-center gap-2 border-b border-[#1a1a1a]">
+            {/* Window Controls */}
+            <div className="bg-[#161b22] px-4 py-2 flex items-center justify-between border-b border-gray-800">
                 <div className="flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-[#ff5f56] hover:bg-[#ff6b63] transition-colors cursor-pointer" />
-                    <div className="w-3 h-3 rounded-full bg-[#ffbd2e] hover:bg-[#ffc943] transition-colors cursor-pointer" />
-                    <div className="w-3 h-3 rounded-full bg-[#27c93f] hover:bg-[#36d34f] transition-colors cursor-pointer" />
+                    <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                    <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                    <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
                 </div>
+                <div className="text-gray-500 text-xs">agent_orchestrator.py</div>
+                <div className="w-8"></div>
             </div>
 
-            {/* Token Counter Header */}
-            {totalTokens > 0 && (
-                <div className="bg-[#2d2d2d] px-4 py-2 border-b border-[#1a1a1a]">
-                    <div className="flex items-center justify-between text-xs font-mono">
-                        <span className="text-[#fbbf24] flex items-center gap-2">
-                            ⚡ Tokens Used:
-                            <span className="font-bold text-[#22c55e]">
-                                {totalTokens.toLocaleString()}
-                            </span>
-                        </span>
-                        {currentProvider && (
-                            <span className="text-[#60a5fa] text-[10px]">{currentProvider}</span>
-                        )}
+            {/* Terminal Content */}
+            <div ref={scrollRef} className="flex-1 p-4 overflow-y-auto space-y-1 scrollbar-hide">
+                {displayedLines.map((line, index) => (
+                    <div key={index} className={`${line.color || 'text-gray-300'} break-words`}>
+                        {line.cmd && <span className="text-green-500 font-bold mr-2">➜ ~</span>}
+                        {line.text}
                     </div>
-                </div>
-            )}
+                ))}
 
+                {/* Current Typing Line */}
+                {currentLineIndex < scriptLines.length && (
+                    <div className={`${scriptLines[currentLineIndex].color || 'text-gray-300'} break-words`}>
+                        {scriptLines[currentLineIndex].cmd && <span className="text-green-500 font-bold mr-2">➜ ~</span>}
+                        {currentText}
+                        <span className="animate-pulse inline-block w-2 h-4 bg-gray-500 ml-1 align-middle"></span>
+                    </div>
+                )}
 
-            {/* Terminal Messages */}
-            <ScrollArea ref={scrollAreaRef} className="h-[420px] bg-[#1e1e1e]">
-                <div className="p-4 space-y-2 font-mono text-xs">
-                    {messages.map((message, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            transition={{
-                                duration: 0.3,
-                                ease: "easeOut",
-                                delay: index === messages.length - 1 ? 0.1 : 0
+                {/* Replay Button (Appears when finished) */}
+                {currentLineIndex >= scriptLines.length && (
+                    <div className="mt-6 flex justify-center">
+                        <button
+                            onClick={() => {
+                                setDisplayedLines([]);
+                                setCurrentLineIndex(0);
+                                setCurrentText("");
                             }}
-                            className="leading-relaxed"
+                            className="text-[10px] uppercase tracking-widest text-gray-600 hover:text-green-400 border border-gray-800 hover:border-green-900 px-4 py-2 rounded transition-all"
                         >
-                            {message.role === "system" && (
-                                <div className="text-[#22c55e]">{message.content}</div>
-                            )}
-
-                            {message.role === "user" && (
-                                <div className="text-[#60a5fa] font-semibold">{message.content}</div>
-                            )}
-
-                            {message.role === "assistant" && (
-                                <div className="space-y-1">
-                                    <div className="text-[#e5e7eb] whitespace-pre-wrap pl-2 border-l-2 border-[#374151]">
-                                        {message.content}
-                                    </div>
-                                    {message.tokens && message.tokens > 0 && (
-                                        <div className="text-[#9ca3af] text-[10px] pl-2">
-                                            +{message.tokens.toLocaleString()} tokens {message.provider && `• ${message.provider}`}
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-                        </motion.div>
-                    ))}
-
-                    {/* Loading indicator with typing dots */}
-                    <AnimatePresence>
-                        {isLoading && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 5 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -5 }}
-                                className="flex items-center gap-3 text-[#fbbf24] pl-2"
-                            >
-                                <TypingDots />
-                                <motion.span
-                                    className="text-xs"
-                                    animate={{ opacity: [0.5, 1, 0.5] }}
-                                    transition={{ duration: 1.5, repeat: Infinity }}
-                                >
-                                    Thinking...
-                                </motion.span>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </div>
-            </ScrollArea>
-
-            {/* Terminal Input */}
-            <div className="bg-[#1a1a1a] px-4 py-3 border-t border-[#2d2d2d]">
-                <form onSubmit={handleSubmit} className="flex items-center gap-2">
-                    <span className="text-[#22c55e] font-mono text-sm font-bold">$</span>
-                    <input
-                        ref={inputRef}
-                        value={inputMessage}
-                        onChange={(e) => setInputMessage(e.target.value)}
-                        onFocus={() => setIsInputFocused(true)}
-                        onBlur={() => setIsInputFocused(false)}
-                        placeholder="type your question..."
-                        disabled={isLoading}
-                        className="flex-1 bg-transparent text-[#e5e7eb] font-mono text-xs outline-none placeholder:text-[#6b7280]"
-                        autoComplete="off"
-                        style={{
-                            caretColor: '#22c55e',
-                        }}
-                    />
-                </form>
+                            Re-Run Simulation
+                        </button>
+                    </div>
+                )}
             </div>
         </motion.div>
     );
-}
+};
