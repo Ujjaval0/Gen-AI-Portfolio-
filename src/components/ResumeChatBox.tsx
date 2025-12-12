@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 
 export const ResumeChatBox = () => {
     const [displayedLines, setDisplayedLines] = useState<any[]>([]);
@@ -75,10 +74,7 @@ export const ResumeChatBox = () => {
     }, [currentText, currentLineIndex]);
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+        <div
             className="w-full max-w-sm mx-auto shadow-2xl rounded-lg overflow-hidden bg-[#0d1117] border border-gray-800 font-mono text-xs sm:text-sm h-[550px] flex flex-col relative"
         >
             {/* Window Controls */}
@@ -126,6 +122,6 @@ export const ResumeChatBox = () => {
                     </div>
                 )}
             </div>
-        </motion.div>
+        </div>
     );
 };

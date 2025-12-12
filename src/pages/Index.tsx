@@ -87,25 +87,25 @@ const workflowSteps = [
   {
     number: "01",
     title: "Problem Definition",
-    description: "Define clear objectives, success metrics, and constraints. Analyze data availability and quality. Identify potential risks and establish baseline performance benchmarks.",
+    description: "I define user needs, success metrics (quality, latency, cost), and validate if Gen AI is the right solution. I identify risks like hallucinations, data privacy, and edge cases before building anything.",
     icon: Lightbulb,
   },
   {
     number: "02",
     title: "System Design",
-    description: "Design scalable architecture, select optimal models and frameworks. Plan data pipelines, API contracts, and infrastructure requirements. Create technical specifications and architecture diagrams.",
+    description: "I design the architecture flow: input → retrieval/tools → LLM → output, selecting models, vector DBs, and infrastructure. I plan prompting strategy, context management, evaluation methods, and observability setup.",
     icon: Code,
   },
   {
     number: "03",
     title: "Build & Validate",
-    description: "Implement features iteratively with continuous testing. Conduct rigorous evaluation using custom metrics. Optimize for performance, accuracy, and resource efficiency.",
+    description: "I build a minimal end-to-end prototype and run experiments on prompts and configurations. I validate through automated tests and human review, iterating quickly based on quality and cost metrics.",
     icon: TestTube,
   },
   {
     number: "04",
     title: "Deploy & Monitor",
-    description: "Deploy with CI/CD pipelines and comprehensive monitoring. Track model performance, user feedback, and system health. Iterate based on real-world data and evolving requirements.",
+    description: "I deploy with CI/CD pipelines and monitor token usage, latency, errors, and user feedback in real-time. I continuously refine prompts, retrieval logic, and system performance based on production data.",
     icon: Rocket,
   },
 ];
@@ -243,7 +243,7 @@ const Index = () => {
             </div>
 
             {/* Chat Widget - Right Side */}
-            <div className="hidden lg:block w-full lg:w-auto flex-shrink-0">
+            <div className="hidden lg:block lg:w-[384px] flex-shrink-0">
               <ResumeChatBox />
             </div>
           </div>
