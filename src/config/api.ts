@@ -1,7 +1,9 @@
 // API configuration for production and development
-export const API_BASE_URL = import.meta.env.PROD
-    ? '/.netlify/functions'  // Production: Use Netlify serverless functions
-    : 'http://localhost:8000';  // Development: Use local backend
+// Set VITE_CHAT_API_URL in .env.local to use deployed backend
+export const CHAT_ENDPOINT =
+    import.meta.env.VITE_CHAT_API_URL ||
+    'http://localhost:8000/chat';
 
-export const CHAT_ENDPOINT = `${API_BASE_URL}/chat`;
-export const HEALTH_ENDPOINT = `${API_BASE_URL}/chat`; // Same endpoint handles health
+export const HEALTH_ENDPOINT =
+    import.meta.env.VITE_HEALTH_API_URL ||
+    'http://localhost:8000/health';

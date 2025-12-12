@@ -1,5 +1,6 @@
 import { Navigation } from "@/components/Navigation";
 import { ResumeChatBox } from "@/components/ResumeChatBox";
+import { MobileChatButton } from "@/components/MobileChatButton";
 import { ProjectCard } from "@/components/ProjectCard";
 import { SkillCategory } from "@/components/SkillCategory";
 import { WorkflowStep } from "@/components/WorkflowStep";
@@ -138,7 +139,7 @@ const Index = () => {
 
       {/* Hero Section with Chat Widget */}
       <motion.section
-        className="relative min-h-[90vh] sm:min-h-[95vh] flex items-center px-3 sm:px-4 md:px-6 pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-12 sm:pb-16 md:pb-20 lg:pb-24 overflow-hidden"
+        className="relative min-h-[90vh] sm:min-h-[95vh] flex items-center px-3 sm:px-4 md:px-6 pt-12 sm:pt-16 md:pt-18 lg:pt-24 pb-12 sm:pb-16 md:pb-20 lg:pb-24 overflow-hidden"
         style={{ opacity, scale }}
       >
         {/* Background animations removed */}
@@ -220,9 +221,14 @@ const Index = () => {
 
                       <section>
                         <h3 className="text-lg font-semibold mb-2">Education</h3>
-                        <div>
-                          <h4 className="font-medium">Master of Science in Computer Science</h4>
-                          <p className="text-muted-foreground text-xs">University Name - 2020</p>
+                        <div className="space-y-3">
+                          <div>
+                            <h4 className="font-medium">Bachelor’s in Computer Applications (BCA)</h4>
+                          </div>
+                          <div>
+                            <h4 className="font-medium">Diploma in Data Analytics</h4>
+                            <p className="text-muted-foreground text-xs">Ducat</p>
+                          </div>
                         </div>
                       </section>
 
@@ -438,9 +444,7 @@ const Index = () => {
                 transition={{ ...smoothTransition, delay: 0.1 }}
                 whileHover={{ x: 10, scale: 1.02 }}
               >
-                I'm an AI Engineer passionate about pushing the boundaries of what's possible with machine learning.
-                With a strong foundation in mathematics and computer science, I specialize in developing cutting-edge
-                AI systems that solve real-world problems.
+                I’m Ujjaval Bhardwaj, a developer with a Bachelor’s in Computer Applications (BCA) and a diploma in Data Analytics from Ducat. I focus on Python and large language models, and I’m especially interested in using AI to build clear, developer-friendly tools and workflows
               </motion.p>
 
               <motion.p
@@ -451,9 +455,7 @@ const Index = () => {
                 transition={{ ...smoothTransition, delay: 0.3 }}
                 whileHover={{ x: 10, scale: 1.02 }}
               >
-                My expertise spans across deep learning architectures, natural language processing, and computer vision.
-                I've successfully deployed production-grade AI models that process millions of requests daily, achieving
-                significant improvements in accuracy and performance.
+                I work with LLMs, prompt design, and using different frameworks like LangChain, LangSmith, and CrewAI to build and refine real projects. Building Cool things with Cool People !
               </motion.p>
             </motion.div>
           </div>
@@ -517,6 +519,9 @@ const Index = () => {
           </motion.div>
         </div>
       </footer>
+
+      {/* Mobile Chat Button - Only visible on mobile/tablet */}
+      <MobileChatButton />
     </div>
   );
 };

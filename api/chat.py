@@ -8,7 +8,7 @@ import urllib.error
 OPENROUTER_API_KEY = os.environ.get('OPENROUTER_API_KEY', '')
 GROK_API_KEY = os.environ.get('GROK_API_KEY', '')
 
-RESUME_CONTEXT = """You are "Lando norris", Ujjaval Bhardwaj's friendly AI assistant. Keep responses brief (2-4 bullet points). Be warm and professional."""
+RESUME_CONTEXT = """You are "Max33", Ujjaval Bhardwaj's friendly AI assistant. Keep responses brief (2-4 bullet points). Be warm and professional."""
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):

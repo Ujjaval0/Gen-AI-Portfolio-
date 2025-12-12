@@ -37,7 +37,7 @@ export function ResumeChatBox() {
     const [messages, setMessages] = useState<Message[]>([
         {
             role: "system",
-            content: "~ Hey! I'm Lando Norris, Ujjaval's AI assistant. Ask me anything about his work!",
+            content: "~ Hey! I'm Portfolio Assistant. How can I help you?",
             timestamp: new Date(),
         },
     ]);
@@ -45,9 +45,8 @@ export function ResumeChatBox() {
     const [isLoading, setIsLoading] = useState(false);
     const [totalTokens, setTotalTokens] = useState(0);
     const [currentProvider, setCurrentProvider] = useState("");
-    const [conversationHistory, setConversationHistory] = useState<
-        Array<{ role: string; content: string }>
-    >([]);
+    // Generate session ID once on component mount - cleared on page refresh
+    const [sessionId] = useState(() => crypto.randomUUID());
     const [isTerminalHovered, setIsTerminalHovered] = useState(false);
     const [isInputFocused, setIsInputFocused] = useState(false);
     const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -80,7 +79,7 @@ export function ResumeChatBox() {
         setIsLoading(true);
 
         try {
-            // Call backend API with conversation history
+            // Call backend API with session ID for memory management
             const response = await fetch(CHAT_ENDPOINT, {
                 method: "POST",
                 headers: {
@@ -88,7 +87,7 @@ export function ResumeChatBox() {
                 },
                 body: JSON.stringify({
                     message: textToSend,
-                    conversationHistory: conversationHistory  // Send history for context
+                    sessionId: sessionId  // LangChain backend manages history
                 }),
             });
 
@@ -112,13 +111,7 @@ export function ResumeChatBox() {
             };
 
             setMessages((prev) => [...prev, assistantMessage]);
-
-            // Update conversation history (without terminal prefix)
-            setConversationHistory((prev) => [
-                ...prev,
-                { role: "user", content: textToSend },
-                { role: "assistant", content: data.response },
-            ]);
+            // Note: Conversation history is now managed by backend session
         } catch (error) {
             console.error("Chat error:", error);
 
