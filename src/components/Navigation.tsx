@@ -39,7 +39,7 @@ const Navigation = () => {
 
   return (
     <motion.div
-      className="sticky top-4 sm:top-6 left-0 right-0 z-50 px-3 sm:px-4 md:px-6"
+      className="sticky top-1 sm:top-4 md:top-6 left-0 right-0 z-50 px-3 sm:px-4 md:px-6"
       initial={{ y: 0, opacity: 1 }}
       animate={{
         y: isVisible ? 0 : -100,
