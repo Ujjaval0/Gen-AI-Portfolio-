@@ -1,6 +1,5 @@
 import { Navigation } from "@/components/Navigation";
 import { ResumeChatBox } from "@/components/ResumeChatBox";
-import { MobileChatButton } from "@/components/MobileChatButton";
 import { ProjectCard } from "@/components/ProjectCard";
 import { SkillCategory } from "@/components/SkillCategory";
 import { WorkflowStep } from "@/components/WorkflowStep";
@@ -139,7 +138,7 @@ const Index = () => {
 
       {/* Hero Section with Chat Widget */}
       <motion.section
-        className="relative min-h-[90vh] sm:min-h-[95vh] flex items-center px-3 sm:px-4 md:px-6 pt-2 sm:pt-12 md:pt-16 lg:pt-20 pb-8 sm:pb-12 md:pb-16 lg:pb-20 overflow-hidden"
+        className="relative min-h-[85vh] sm:min-h-[90vh] lg:min-h-[95vh] flex items-center px-3 sm:px-4 md:px-6 lg:px-8 pt-2 sm:pt-8 md:pt-12 lg:pt-16 xl:pt-20 pb-6 sm:pb-10 md:pb-14 lg:pb-16 xl:pb-20 overflow-hidden"
         style={{ opacity, scale }}
       >
         {/* Background animations removed */}
@@ -147,12 +146,12 @@ const Index = () => {
         {/* Gradient Overlay for better text contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background pointer-events-none z-[1]" />
 
-        <div className="container mx-auto max-w-7xl relative z-10">
-          <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-start">
+        <div className="container mx-auto max-w-[1600px] relative z-10 w-full">
+          <div className="flex flex-col xl:flex-row gap-4 sm:gap-6 lg:gap-8 xl:gap-10 items-start justify-between">
             {/* Main Hero Content */}
-            <div className="flex-1">
+            <div className="flex-1 w-full xl:max-w-[calc(100%-420px)]">
               <motion.p
-                className="text-xs uppercase tracking-wider text-muted-foreground mb-6"
+                className="text-xs uppercase tracking-wider text-muted-foreground mb-3 sm:mb-4 md:mb-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={smoothTransition}
@@ -162,13 +161,13 @@ const Index = () => {
 
               <SplitText
                 text="I build reliable, production-ready AI agents and agentic systems that actually ship."
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight max-w-4xl"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground mb-4 sm:mb-5 md:mb-6 leading-tight max-w-4xl"
                 delay={0.3}
                 stagger={0.02}
               />
 
               <motion.p
-                className="text-lg text-muted-foreground mb-10 max-w-2xl"
+                className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 sm:mb-8 md:mb-10 max-w-2xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...smoothTransition, delay: 0.8 }}
@@ -177,7 +176,7 @@ const Index = () => {
               </motion.p>
 
               <motion.div
-                className="flex items-center gap-4 flex-wrap"
+                className="flex items-center gap-3 sm:gap-4 flex-wrap"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...smoothTransition, delay: 1 }}
@@ -186,7 +185,7 @@ const Index = () => {
                   onClick={() => {
                     document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="bg-foreground text-background hover:bg-foreground/90 px-6"
+                  className="bg-foreground text-background hover:bg-foreground/90 px-4 sm:px-6 text-sm sm:text-base"
                 >
                   View Projects
                 </Button>
@@ -194,7 +193,7 @@ const Index = () => {
                   <DialogTrigger asChild>
                     <Button
                       variant="outline"
-                      className="px-6"
+                      className="px-4 sm:px-6 text-sm sm:text-base"
                     >
                       Resume
                     </Button>
@@ -242,8 +241,8 @@ const Index = () => {
               </motion.div>
             </div>
 
-            {/* Chat Widget - Right Side - Now visible on md (tablet) and up */}
-            <div className="hidden md:block md:w-[384px] lg:w-[384px] flex-shrink-0">
+            {/* Chat Widget - Right Side - Only visible on extra large screens (1280px+) */}
+            <div className="hidden xl:block xl:w-[384px] flex-shrink-0">
               <ResumeChatBox />
             </div>
           </div>
@@ -254,10 +253,10 @@ const Index = () => {
       </motion.section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-16 md:py-20 px-4 md:px-6">
+      <section id="projects" className="py-10 sm:py-14 md:py-16 lg:py-20 px-4 md:px-6">
         <div className="container mx-auto max-w-7xl">
           <motion.h2
-            className="text-3xl md:text-4xl font-bold text-foreground mb-3 font-heading"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 font-heading"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -267,7 +266,7 @@ const Index = () => {
           </motion.h2>
 
           <motion.p
-            className="text-sm md:text-base text-muted-foreground mb-12 md:mb-16"
+            className="text-sm md:text-base text-muted-foreground mb-8 sm:mb-10 md:mb-12 lg:mb-16"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -279,7 +278,7 @@ const Index = () => {
           <AnimatePresence mode="wait">
             <div className="max-w-6xl mx-auto">
               <motion.div
-                className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-stretch"
+                className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-14 items-stretch"
                 layout
               >
                 {projects.map((project, index) => (
@@ -305,10 +304,10 @@ const Index = () => {
       </section>
 
       {/* Workflow Section */}
-      <section id="workflow" className="py-16 md:py-20 px-4 md:px-6">
+      <section id="workflow" className="py-10 sm:py-14 md:py-16 lg:py-20 px-4 md:px-6">
         <div className="container mx-auto max-w-7xl">
           <motion.h2
-            className="text-3xl md:text-4xl font-bold text-foreground mb-3 font-heading"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 font-heading"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -318,7 +317,7 @@ const Index = () => {
           </motion.h2>
 
           <motion.p
-            className="text-sm md:text-base text-muted-foreground mb-12 md:mb-16"
+            className="text-sm md:text-base text-muted-foreground mb-8 sm:mb-10 md:mb-12 lg:mb-16"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -343,11 +342,11 @@ const Index = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-16 md:py-20 px-4 md:px-6 relative overflow-hidden">
+      <section id="skills" className="py-10 sm:py-14 md:py-16 lg:py-20 px-4 md:px-6 relative overflow-hidden">
 
         <div className="container mx-auto max-w-7xl relative z-10">
           <motion.h2
-            className="text-3xl md:text-4xl font-bold text-foreground mb-8 md:mb-12 font-heading"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 md:mb-10 lg:mb-12 font-heading"
             initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -357,7 +356,7 @@ const Index = () => {
           </motion.h2>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6"
             layout
           >
             <AnimatePresence>
@@ -376,10 +375,10 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-16 md:py-20 px-4 md:px-6">
+      <section id="about" className="py-10 sm:py-14 md:py-16 lg:py-20 px-4 md:px-6">
         <div className="container mx-auto max-w-7xl">
           <motion.h2
-            className="text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8 font-heading"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6 md:mb-8 font-heading"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -402,7 +401,7 @@ const Index = () => {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl">
+                <div className="w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl">
                   <motion.img
                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
                     alt="AI Engineer Profile"
@@ -520,8 +519,7 @@ const Index = () => {
         </div>
       </footer>
 
-      {/* Mobile Chat Button - Only visible on mobile/tablet */}
-      <MobileChatButton />
+
     </div>
   );
 };
